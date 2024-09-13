@@ -1,0 +1,370 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="./assets/css/output.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="app"></div>
+  <!-- <div id="test">
+    <h1>Hello Jusi</h1>
+    <span>Jusi is a library to create layouts using only JS.</span>
+    <hr>
+    <h3>Why to use Jusi?</h3>
+    <ul>
+      <li>Standardized components.</li>
+    </ul>
+    <hr>
+    <h3>Join us Now</h3>
+    <form action="">
+      <div>
+        <label for="">First name</label>
+        <input type="text" placeholder="John">
+      </div>
+      <div>
+        <label for="">City</label>
+        <select name="" id="">
+          <option value="">Wessex</option>
+          <option value="">Sussex</option>
+        </select>
+      </div>
+    </form>
+    <hr>
+    <div class="card">this is a card</div>
+  </div> -->
+  <script>
+    const kebabize = (str) => str.replace(/[A-Z]+(?![a-z])|[A-Z]/g, ($, ofs) => (ofs ? "-" : "") + $.toLowerCase())
+
+
+    const scales = { 768: 2, 1024: 3, 1200: 4 }
+    const device = {
+      width: window.screen.width,
+      height: window.screen.height,
+      scale: 1
+    }
+
+    const styleMap = {
+      textColor: 'color',
+      fontSize: 'font-size',
+      backgroundColor: 'background-color',
+      borderColor: 'border-color',
+      borderWidth: 'border-width'
+    }
+
+
+    const rems = ['padding', 'fontSize', 'gap']
+    const pixies = ['borderWidth', 'borderRadius', 'borderTopRightRadius', 'borderTopLeftRadius', 'borderBottomRightRadius', 'borderBottomLeftRadius', 'maxWidth', 'top', 'right', 'bottom', 'left']
+
+    const colors = {
+      body: 'rgb(216, 216, 216)',
+      navbar: 'rgb(18, 19, 20)',
+      main: 'rgb(216, 216, 216)',
+      footer: 'rgb(83, 89, 104)',
+      font: 'rgb(29, 29, 29)',
+      heading: 'rgb(5, 5, 5)',
+      button: 'rgb(5, 19, 141)',
+      border: 'rgb(5, 19, 141)',
+      card: 'rgb(149, 147, 255)',
+    }
+
+    const styles = {
+      borderRadius: 10
+    }
+
+
+    const elements = {
+      html: { height: '100%' },
+      body: {
+        height: '100%',
+        backgroundColor: colors.body
+      },
+      h1: {
+        fontSize: 3
+      },
+      h2: {
+        fontSize: 2.2,
+      },
+      h3: {
+        fontSize: 1.8
+      },
+      button: {
+        backgroundColor: colors.button,
+        color: '#fff',
+        padding: { x: 1.2, y: .5 },
+        fontSize: 1.11
+      },
+      header: {
+        width: '100%',
+        backgroundColor: colors.navbar,
+        color: 'rgb(255, 255, 255)',
+        padding: { y: 1 },
+      },
+      main: {
+        height: '100%',
+        backgroundColor: colors.main
+      },
+      footer: {
+        backgroundColor: colors.footer
+      },
+      '.app': { height: '100%' },
+      '.container': { width: '100%', maxWidth: 540, margin: '0px auto' },
+      '.page-header': {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: { y: 1 }
+      },
+      '.card': {
+        borderColor: colors.border,
+        borderWidth: 1,
+        borderStyle: 'solid',
+        borderRadius: styles.borderRadius,
+        backgroundColor: colors.card
+      },
+      '.card-body': { padding: .3 },
+      '.between': { display: 'flex', justifyContent: 'space-between', alignItems: 'center' },
+      '.center': { justifyContent: 'center' },
+      '.middle': { alignItems: 'center' },
+      '.hstack': {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        alignSelf: 'stretch'
+      },
+      '.vstack': {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        alignSelf: 'stretch'
+      },
+      '.gap-1': { gap: .25 },
+      '.gap-2': { gap: .5 },
+      '.gap-3': { gap: 1 },
+      '.gap-4': { gap: 2 },
+      '.gap-5': { gap: 4 },
+      '.stretch': { alignSelf: 'stretch' },
+      '.w-full': { width: '100%' },
+      '.grid': { display: 'grid', width: '100%' },
+      '.cols-2': { gridTemplateColumns: 'repeat(2, 1fr)' },
+      '.cols-3': { gridTemplateColumns: 'repeat(3, 1fr)' },
+      '.cols-4': { gridTemplateColumns: 'repeat(4, 1fr)' },
+      '.rounded': {borderRadius: styles.borderRadius },
+      '.rounded-top': { borderTopLeftRadius: styles.borderRadius, borderTopRightRadius: styles.borderRadius },
+      '.rounded-bottom': { borderBottomLeftRadius: styles.borderRadius, borderBottomRightRadius: styles.borderRadius },
+    }
+
+    const addUnit = (key, val) => {
+      // console.log(key, val)
+      if (rems.includes(key) && (typeof (val) === 'number')) { val += 'rem' }
+      if (pixies.includes(key) && (typeof (val) === 'number')) { val += 'px' }
+      return val
+    }
+    
+
+    const makeCSSText = (styles) => {
+      const stylesArr = []
+      Object.keys(styles).map(sk => {
+        let val = styles[sk]
+        if (sk === 'padding') {
+          if (typeof (styles[sk]) === 'object') {
+            if (!styles[sk].top && !styles[sk].bottom && !styles[sk].y) { styles[sk].y = 0 }
+            if (!styles[sk].right && !styles[sk].left && !styles[sk].x) { styles[sk].x = 0 }
+            val = `${styles[sk].top || styles[sk].y}rem ${styles[sk].right || styles[sk].x}rem ${styles[sk].bottom || styles[sk].y}rem ${styles[sk].left || styles[sk].x}rem`
+          } else {
+            val = styles[sk]
+          }
+        }
+
+        //console.log(typeof(styles[sk]))
+        val = addUnit(sk, val)
+        const styleText = [kebabize(sk), val].join(': ')
+        stylesArr.push(styleText)
+      })
+      const stylesText = `{${stylesArr.join('; ')}}`
+      return stylesText
+    }
+
+    const makeCSSLine = (tag, styles) => {
+      const stylesText = makeCSSText(styles)
+      return [tag, stylesText].join(' ')
+    }
+
+    const createStyles = () => {
+      let file = ''
+      Object.keys(elements).map(tag => {
+        file += makeCSSLine(tag, elements[tag])
+      })
+
+      var style = document.createElement('style');
+      style.type = 'text/css';
+      style.innerHTML = file
+      // console.log(file)
+      document.getElementsByTagName('head')[0].appendChild(style);
+    }
+    createStyles()
+
+
+    const createElement = (tag, props) => {
+      const el = document.createElement(tag);
+      // console.log(el, props.attrs)
+
+      if (props.text) {
+        el.innerText = props.text;
+      }
+      props.classList?.map(cls => el.classList.add(cls))
+      if (props.contains) {
+        props.contains.map(item => {
+          el.appendChild(item)
+        })
+      }
+
+      if (props.attrs) {
+        // console.log(props.attrs)
+        if (props.attrs.style) {
+          Object.keys(props.attrs.style).map(item => el.style[item] = addUnit(item, props.attrs.style[item]))
+          // console.log(el, props.attrs.style, el.style)
+        }
+
+        Object.keys(props.attrs).map(attr => {
+          if (attr !== 'style') {
+            el.setAttribute(attr, props.attrs[attr])
+          }
+        })
+      }
+
+      return el
+    }
+
+    const signInSubmit = createElement('button', { text: 'Submit' })
+    const pageTitle = createElement('h1', { text: 'Homepage' })
+    const addButton = createElement('button', { text: 'Add' })
+    const filterButton = createElement('button', { text: 'Filter' })
+    const pageActions = createElement('div', { classList: ['hstack', 'gap-3'], contains: [addButton, filterButton] })
+    const pageHeader = createElement('div', { classList: ['page-header'], contains: [pageTitle, pageActions] })
+
+
+
+    const card = (slots) => {
+      const cardHeader = createElement('div', { classList: ['card-header'], contains: slots.header })
+      const cardBody = createElement('div', { classList: ['card-body'], contains: slots.body })
+      const cardFooter = createElement('div', { classList: ['card-footer'], contains: slots.footer })
+
+      const card = createElement('div', { classList: ['card'], contains: [cardHeader, cardBody, cardFooter] })
+      return card
+    }
+
+    const img = (props) => {
+      const image = createElement('img', props)
+      return image
+    }
+
+    const span = (props) => {
+      const el = createElement('span', props)
+      return el
+    }
+
+    const div = (props) => {
+      const el = createElement('div', props)
+      return el
+    }
+
+    const button = (props) => {
+      const el = createElement('button', props)
+      return el
+    }
+
+    const h3 = (props) => {
+      const el = createElement('h3', props)
+      return el
+    }
+
+    const grid = (props) => {
+      const cols = props.cols ? `cols-${props.cols}` : 'cols-2'
+      const gap = props.gap ? `gap-${props.gap}` : 'gap-2'
+      const el = createElement('div', { classList: ['grid', cols, gap, 'center'], contains: props.contains })
+      return el
+    }
+
+    const container = (props) => {
+      if (props.classList) {
+        props.classList.push('container')
+      } else {
+        props.classList = ['container']
+      }
+      const el = createElement('div', props)
+      return el
+    }
+
+    const card1 = card({
+      header: [img({ classList:['rounded-top'], attrs: { src: './assets/img/example1.jpeg' } })],
+      body: [
+        h3({ text: 'card1 title' }),
+        span({ text: 'this is a test card' })
+      ],
+      footer: [
+        button({
+          text: 'View',
+          classList: ['w-full'],
+          attrs: { 
+            style: { 
+              borderBottomLeftRadius: styles.borderRadius, 
+              borderBottomRightRadius: styles.borderRadius 
+            } 
+          }
+        })
+      ]
+    })
+
+
+    const card2 = card({
+      header: [img({ classList:['rounded-top'], attrs: { src: './assets/img/example1.jpeg' } })],
+      body: [h3({ text: 'card2 title' }), span({ text: 'this is a test card' })],
+      footer: [
+        button({
+          text: 'View',
+          classList: ['w-full', 'rounded-bottom'],
+        })
+      ]
+    })
+
+
+    const cards = [card1, card2]
+    const cardsGrid = grid({
+      cols: 3,
+      gap: 3,
+      contains: cards
+    })
+
+    const header = createElement('header', {
+      contains: [
+        container({
+          classList: ['between'],
+          contains: [
+            img({ attrs: {src: './assets/img/logo1.svg'} }),
+            div({ text: 'X' })
+          ]
+        })
+      ]
+    })
+    const main = createElement('main', {
+      contains: [
+        container({
+          contains: [pageHeader, cardsGrid]
+        })
+      ]
+    })
+    const footer = createElement('footer', {})
+
+    const layout = createElement('div', { contains: [header, main, footer] })
+    // console.log(layout)
+
+    document.body.style.backgroundColor = elements.body.backgroundColor
+    const app = document.getElementById('app')
+    app.appendChild(layout)
+  </script>
+</body>
+
+</html>
