@@ -63,9 +63,7 @@ const card = (slots) => {
 }
 
 const grid = (props) => {
-  const cols = props.cols ? `cols-${props.cols}` : 'cols-2'
-  const gap = props.gap ? `gap-${props.gap}` : 'gap-2'
-  const el = div({ classList: ['grid', cols, gap, 'center'], contains: props.contains })
+  const el = div({ classList: ['grid'], contains: props.contains })
   return el
 }
 

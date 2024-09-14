@@ -17,4 +17,8 @@ export const header = createElement('header', {
 })
 
 
-export const footer = createElement('footer', {})
+export const footer = createElement('footer', {
+  contains: [
+    container({text: 'site footer'})
+  ]
+})

@@ -54,27 +54,26 @@ const card2 = card({
   ]
 })
 
-
-const cards = [card1, card2]
-const cardsGrid = grid({
-  cols: 3,
-  gap: 3,
-  contains: cards
+const pageContent = div({
+  classList: ['page-content'],
+  contains: [
+    grid({
+      contains: [card1, card2]
+    })
+  ]
 })
 
 const main = createElement('main', {
   contains: [
     container({
-      contains: [pageHeader, cardsGrid]
+      contains: [pageHeader, pageContent]
     })
   ]
 })
 
-console.log(header)
+const wrap = div({classList: ['wrap'], contains: [header, main]})
+const layout = createElement('div', { classList: ['layout'], contains: [wrap, footer] })
+const app = document.getElementById('app')
+app.appendChild(layout)
+// console.log(layout)
 
-
-const layout = createElement('div', { contains: [header, main, footer] })
-
-    const app = document.getElementById('app')
-    app.appendChild(layout)
-    // console.log(layout)

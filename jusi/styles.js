@@ -1,9 +1,24 @@
 const scales = { 768: 2, 1024: 3, 1200: 4 }
 const device = {
-  width: window.screen.width,
-  height: window.screen.height,
+  type: 'desktop',
+  width: window.innerWidth,
+  height: window.innerHeight,
   scale: 1
 }
+
+const setDeviceType = () => {
+  const w = window.innerWidth
+  device.type = (w < 540) ? 'mobile' : (w < 1024) ? 'tablet' : 'desktop'
+  document.body.classList.remove('desktop')
+  document.body.classList.remove('tablet')
+  document.body.classList.remove('mobile')
+  document.body.classList.add(device.type)
+  // console.log(device.type)
+}
+setDeviceType()
+
+window.addEventListener("resize", setDeviceType);
+
 
 const styleMap = {
   textColor: 'color',
@@ -102,6 +117,7 @@ const elements = {
     fontSize: .72
   },
   '.app': { height: '100%' },
+  '.layout': {minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' },
   '.container': { width: '100%', maxWidth: 540, margin: '0px auto' },
   '.page-header': {
     display: 'flex',
@@ -149,7 +165,18 @@ const elements = {
   '.gap-5': { gap: 4 },
   '.stretch': { alignSelf: 'stretch' },
   '.w-full': { width: '100%' },
-  '.grid': { display: 'grid', width: '100%' },
+  '.grid': { 
+    display: 'grid', 
+    width: '100%',
+    gridTemplateColumns: 'repeat(3, 1fr)', 
+    gap: 1 
+  },
+  '.tablet .grid': {
+    gridTemplateColumns: 'repeat(2, 1fr)', 
+  },
+  '.mobile .grid': {
+    gridTemplateColumns: 'repeat(1, 1fr)', 
+  },
   '.cols-2': { gridTemplateColumns: 'repeat(2, 1fr)' },
   '.cols-3': { gridTemplateColumns: 'repeat(3, 1fr)' },
   '.cols-4': { gridTemplateColumns: 'repeat(4, 1fr)' },
@@ -157,3 +184,12 @@ const elements = {
   '.rounded-top': { borderTopLeftRadius: styles.borderRadius, borderTopRightRadius: styles.borderRadius },
   '.rounded-bottom': { borderBottomLeftRadius: styles.borderRadius, borderBottomRightRadius: styles.borderRadius },
 }
+
+
+/* if(device.type === 'tablet') {
+  elements['.grid'].gridTemplateColumns = 'repeat(2, 1fr)'
+}
+
+if(device.type === 'mobile') {
+  elements['.grid'].gridTemplateColumns = 'repeat(1, 1fr)'
+} */
