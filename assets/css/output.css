@@ -678,7 +678,3 @@ td {
   --size-16: calc(2rem * var(--scale));
   --size-32: calc(4rem * var(--scale));
 }
-
-header {
-  background-color: var(--blue-100);
-}
