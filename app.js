@@ -165,3 +165,14 @@ app.pageContent = div({
   contains: [app.posts]
 })
 
+
+
+app.loginForm = div({
+  classList: ['login-form'],
+  contains: [
+    img({ attrs: { src: './assets/img/logo1.svg' } }),
+    input({type: 'email', label: 'Email'}),
+    input({type: 'password', label: 'Password'}),
+    button({text: 'Login'})
+  ]
+})

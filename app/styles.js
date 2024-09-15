@@ -167,7 +167,7 @@ const cssElements = {
   '.page-content': {
     padding: {bottom: 2}
   },
-  'input[type=text],input[type=email]': {
+  'input[type=text],input[type=email],input[type=password],input[type=date]': {
     backgroundColor: 'white',
     outline: 'none',
     ...border,
@@ -206,6 +206,22 @@ const cssElements = {
   '.mobile .grid': {
     gridTemplateColumns: 'repeat(1, 1fr)', 
   },
+  '.page-login main': {
+    width: '100%',
+    height: '100%',
+    ...cssUtils[".col"],
+    ...cssUtils[".content-center"],
+    ...cssUtils[".items-center"]
+  },
+  '.login-form': {
+    color: 'white',
+    backgroundColor: colors.navbar,
+    padding: 3,
+    ...border
+  },
+  '.login-form > *': {
+    marginBottom: '14px'
+  }
 }
 
 const elementCSS = {...cssUtils, ...cssElements}

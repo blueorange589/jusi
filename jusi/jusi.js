@@ -50,11 +50,12 @@ jusi.createStyles = (elementCSS) => {
 
 jusi.page = {
   app: document.getElementById('app'),
-  push: (content) => {
+  push: (name, content) => {
     jusi.page.app.innerHTML = ''
     console.log(content)
     content.map(part => {
       jusi.page.app.appendChild(part)
     })
+    document.body.classList.add(`page-${name}`)
   }
 }
