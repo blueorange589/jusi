@@ -1,9 +1,9 @@
 
 
-app.layouts = {}
-app.layouts.default = (fields) => {
+jusi.layouts = {}
+jusi.layouts.default = (fields) => {
   return [
-    app.header,
+    jusi.header,
     main({
       contains: [
         container({
@@ -11,11 +11,11 @@ app.layouts.default = (fields) => {
         })
       ]
     }),
-    app.footer
+    jusi.footer
   ]
 }
 
-app.layouts.login = (fields) => {
+jusi.layouts.login = (fields) => {
   return [
     main({
       contains: fields
@@ -23,15 +23,15 @@ app.layouts.login = (fields) => {
   ]
 }
 
-app.pages = {}
-app.pages.index = app.layouts.default([
-  app.pageHeader,
-  app.gridFilter,
-  app.pageContent
+jusi.pages = {}
+jusi.pages.index = jusi.layouts.default([
+  jusi.pageHeader,
+  jusi.gridFilter,
+  jusi.pageContent
 ])
 
-app.pages.login = app.layouts.login([
-  app.loginForm
+jusi.pages.login = jusi.layouts.login([
+  jusi.loginForm
 ])
 
-jusi.page.push('login', app.pages.login)
+jusi.page.push('login')

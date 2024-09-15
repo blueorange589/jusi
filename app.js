@@ -1,7 +1,4 @@
-const app = {}
-
-
-app.pageHeader = div({ 
+jusi.pageHeader = div({ 
   classList: ['page-header'], 
   contains: [
     h1({ text: 'Homepage' }), 
@@ -16,7 +13,7 @@ app.pageHeader = div({
 })
 
 
-app.header = createElement('header', {
+jusi.header = createElement('header', {
   contains: [
     container({
       classList: ['between'],
@@ -36,13 +33,13 @@ app.header = createElement('header', {
 
 
 
-app.footer = createElement('footer', {
+jusi.footer = createElement('footer', {
   contains: [
     container({ text: 'site footer' })
   ]
 })
 
-app.gridFilter = div({
+jusi.gridFilter = div({
   classList: ['grid-filter'],
   contains: [
     h4({text: 'Filter results'}),
@@ -54,9 +51,9 @@ app.gridFilter = div({
 
 
 
-app.menuItems = []
+jusi.menuItems = []
 Object.keys(menu).map(item => {
-  app.menuItems.push(li({
+  jusi.menuItems.push(li({
     contains: [a({ 
       text: menu[item].title, 
       attrs: { href: menu[item].link } 
@@ -64,8 +61,8 @@ Object.keys(menu).map(item => {
   }))
 })
 
-app.mobileMenuList = ul({
-  contains: app.menuItems
+jusi.mobileMenuList = ul({
+  contains: jusi.menuItems
 })
 
 // const mobileMenuList = a({text: 'test'})
@@ -73,11 +70,11 @@ app.mobileMenuList = ul({
 //  console.log(mobileMenuList)
 
 
-app.mobileMenu = div({
+jusi.mobileMenu = div({
   classList: ['mobilemenu'],
   contains: [
     img({attrs: {src: './assets/img/logo1.svg'}}),
-    app.mobileMenuList
+    jusi.mobileMenuList
   ]
 })
 
@@ -133,11 +130,11 @@ const card2 = card({
   ]
 })
 
-app.grid = grid({contains: [card1, card2]})
-app.posts = div({classList:['posts'], contains: [app.grid]})
+jusi.grid = grid({contains: [card1, card2]})
+jusi.posts = div({classList:['posts'], contains: [jusi.grid]})
 // console.log(dynamic.grid)
 
-app.postCards = (posts) => {
+jusi.postCards = (posts) => {
   return posts.map(post => card({
     header: [
       img({
@@ -160,19 +157,19 @@ app.postCards = (posts) => {
   }))
 }
 
-app.pageContent = div({
+jusi.pageContent = div({
   classList: ['page-content'],
-  contains: [app.posts]
+  contains: [jusi.posts]
 })
+ 
 
 
-
-app.loginForm = div({
+jusi.loginForm = div({
   classList: ['login-form'],
   contains: [
     img({ attrs: { src: './assets/img/logo1.svg' } }),
     input({type: 'email', label: 'Email'}),
     input({type: 'password', label: 'Password'}),
-    button({text: 'Login'})
+    button({text: 'Login', attrs:{ href:'index'}, events: {click: events.navigate}})
   ]
 })

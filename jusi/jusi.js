@@ -48,14 +48,16 @@ jusi.createStyles = (elementCSS) => {
   document.getElementsByTagName('head')[0].appendChild(style);
 }
 
+jusi.pages = {}
+
 jusi.page = {
   app: document.getElementById('app'),
-  push: (name, content) => {
+  push: (page) => {
     jusi.page.app.innerHTML = ''
-    console.log(content)
-    content.map(part => {
+    console.log(page, jusi.pages[page])
+    jusi.pages[page].map(part => {
       jusi.page.app.appendChild(part)
     })
-    document.body.classList.add(`page-${name}`)
-  }
+    document.body.classList.add(`page-${page}`)
+  } 
 }
