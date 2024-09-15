@@ -131,15 +131,14 @@ jusi.page = {
 }
 
 
-
-
-
+jusi.el = {}
 
 
 let resolveRoute = (evt) => {
   const url = window.location.hash.slice(1) || "index";
   jusi.page.push(url)
 };
+
 
 
 jusi.init = () => {
@@ -149,7 +148,6 @@ jusi.init = () => {
 
 window.addEventListener('load', () => {
   resolveRoute()
-  jusi.theme.load()
 });
 window.addEventListener('hashchange', resolveRoute);
 window.addEventListener("resize", setDeviceType);

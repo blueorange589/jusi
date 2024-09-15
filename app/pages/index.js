@@ -1,15 +1,9 @@
-
-
-
-
 jusi.pages.index = jusi.layouts.default([
-  jusi.pageHeader,
-  jusi.gridFilter,
-  jusi.pageContent
+  jusi.el.pageHeader,
+  jusi.el.gridFilter,
+  jusi.el.pageContent
 ])
 
 jusi.pages.login = jusi.layouts.login([
-  jusi.loginForm
+  jusi.el.loginForm
 ])
-
-jusi.page.push('login')

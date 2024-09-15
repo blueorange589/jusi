@@ -4,7 +4,7 @@ const events = {
   },
   getPosts: async() => {
     const r = await request('https://dummyjson.com/posts/?limit=10')
-    render(jusi.grid, jusi.postCards(r.posts)) 
+    render(jusi.el.grid, jusi.el.postCards(r.posts))
   },
   navigate: (e) => {
     const href = e.currentTarget.getAttribute("href")
