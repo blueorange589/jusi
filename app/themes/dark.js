@@ -38,13 +38,15 @@ if (!cssUtils) {
 
 
 // you can clone `main` theme or create a new theme object from scratch
-jusi.themes.dark = jusi.theme.clone('main')
+// const dark = {body: {backgroundColor: ...}}
+const dark = jusi.theme.clone('main')
 
 // you can update styles of cloned theme as needed
-jusi.themes.dark.main.backgroundColor = darkTheme.colors.body
-jusi.themes.dark.main.color = 'white'
-jusi.themes.dark['.card'].backgroundColor = darkTheme.colors.card
-jusi.themes.dark.h1.color = darkTheme.colors.heading
-jusi.themes.dark.h2.color = darkTheme.colors.heading
-jusi.themes.dark.h3.color = darkTheme.colors.heading
-jusi.themes.dark.h4.color = darkTheme.colors.heading
+dark.main.backgroundColor = darkTheme.colors.body
+dark.main.color = 'white'
+dark['.card'].backgroundColor = darkTheme.colors.card
+dark.h1.color = dark.h2.color = dark.h3.color = dark.h4.color = darkTheme.colors.heading
+
+
+// add the dark theme to jusi themes
+jusi.themes.dark = dark
