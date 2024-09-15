@@ -144,3 +144,17 @@ const render = (container, items) => {
     container.appendChild(item)
   })
 }
+
+
+const createStyles = (elementCSS) => {
+  let file = ''
+  Object.keys(elementCSS).map(tag => {
+    file += makeCSSLine(tag, elementCSS[tag])
+  })
+
+  var style = document.createElement('style');
+  style.innerHTML = file
+  // console.log(file)
+  document.getElementsByTagName('head')[0].appendChild(style);
+  return style
+}

@@ -29,7 +29,6 @@ const blockquote = (props) => createElement('blockquote', props)
 const canvas = (props) => createElement('canvas', props)
 const caption = (props) => createElement('caption', props)
 const code = (props) => createElement('code', props)
-const a = (props) => createElement('a', props)
 const b = (props) => createElement('b', props)
 const p = (props) => createElement('p', props)
 const pre = (props) => createElement('pre', props)
@@ -37,8 +36,13 @@ const section = (props) => createElement('section', props)
 const strong = (props) => createElement('strong', props)
 
 /* components */
-const divider = (props = {}) => {
-
+const a = (props) => {
+  if(props.href) { 
+    if(!props.attrs) { props.attrs = {} }
+    props.attrs.href = props.href
+  }
+  const el = createElement('a', props)
+  return el
 }
 
 const input = (props) => {

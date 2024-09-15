@@ -7,9 +7,14 @@ const events = {
     render(jusi.grid, jusi.postCards(r.posts)) 
   },
   navigate: (e) => {
-    console.log()
-    const href = e.target.getAttribute("href")
+    const href = e.currentTarget.getAttribute("href")
+    console.log(e.currentTarget)
     jusi.page.push(href)
+  },
+  switchTheme: (e) => {
+    const theme = jusi.theme.getName()
+    const t = theme === 'dark' ? 'main' : 'dark'
+    jusi.theme.use(t)
   }
 }
 

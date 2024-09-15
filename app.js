@@ -22,15 +22,22 @@ jusi.header = createElement('header', {
         div({
           classList: ['navmenu', 'hstack', 'gap-2'],
           contains: [
+            button({ 
+              icon: 'moon-stars',
+              attrs: { theme: 'dark' },
+              events: {click: events.switchTheme }
+            }),
             button({ icon: 'list' }),
-            button({ icon: 'box-arrow-right' })
+            a({
+              icon: 'box-arrow-right', 
+              href: 'index.html#login'
+            })
           ]
         })
       ]
     })
   ]
 })
-
 
 
 jusi.footer = createElement('footer', {
@@ -122,8 +129,8 @@ const card2 = card({
       classList: ['w-full', 'rounded-bottom'],
       attrs: {
         style: {
-          borderBottomLeftRadius: styles.borderRadius,
-          borderBottomRightRadius: styles.borderRadius
+          borderBottomLeftRadius: jusi.styles.borderRadius,
+          borderBottomRightRadius: jusi.styles.borderRadius
         }
       }
     })
@@ -163,13 +170,17 @@ jusi.pageContent = div({
 })
  
 
-
 jusi.loginForm = div({
   classList: ['login-form'],
   contains: [
     img({ attrs: { src: './assets/img/logo1.svg' } }),
     input({type: 'email', label: 'Email'}),
     input({type: 'password', label: 'Password'}),
-    button({text: 'Login', attrs:{ href:'index'}, events: {click: events.navigate}})
+    button({
+      text: 'Login', 
+      attrs:{ href:'index'}, 
+      events: {click: events.navigate}
+    }),
+    a({text: 'Homepage', href: 'index.html#index'})
   ]
 })

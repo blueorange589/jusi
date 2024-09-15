@@ -23,7 +23,6 @@ jusi.layouts.login = (fields) => {
   ]
 }
 
-jusi.pages = {}
 jusi.pages.index = jusi.layouts.default([
   jusi.pageHeader,
   jusi.gridFilter,

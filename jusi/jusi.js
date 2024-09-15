@@ -19,7 +19,7 @@ const setDeviceType = () => {
 }
 setDeviceType()
 
-window.addEventListener("resize", setDeviceType);
+
 
 
 const styleMap = {
@@ -34,19 +34,87 @@ const styleMap = {
 const rems = ['padding', 'fontSize', 'gap']
 const pixies = ['width', 'height', 'borderWidth', 'borderRadius', 'borderTopRightRadius', 'borderTopLeftRadius', 'borderBottomRightRadius', 'borderBottomLeftRadius', 'maxWidth', 'top', 'right', 'bottom', 'left']
 
+jusi.themes = {}
 
-jusi.createStyles = (elementCSS) => {
-  let file = ''
-  Object.keys(elementCSS).map(tag => {
-    file += makeCSSLine(tag, elementCSS[tag])
-  })
+jusi.theme = {}
+jusi.theme.use = (name) => {
+  if(jusi.css.fileTheme) {
+    jusi.css.fileTheme.remove()
+  }
+  localStorage.setItem('jusi-theme', name) 
 
-  var style = document.createElement('style');
-  style.type = 'text/css';
-  style.innerHTML = file
-  // console.log(file)
-  document.getElementsByTagName('head')[0].appendChild(style);
+  // console.log(`theme: ${name}`, jusi.themes[name])
+  jusi.css.fileTheme = createStyles(jusi.themes[name])
 }
+
+jusi.theme.load = () => {
+  const theme = localStorage.getItem('jusi-theme') || 'main'
+  jusi.theme.use(theme)
+}
+
+jusi.theme.clone = (name) => {
+  if(!jusi.themes[name]) {
+    console.error('Jusi: theme to be cloned not found')
+    return {}
+  }
+  return JSON.parse(JSON.stringify(jusi.themes[name]))
+}
+
+jusi.theme.getName = () => {
+  return localStorage.getItem("jusi-theme")
+}
+
+
+jusi.css = {}
+jusi.styles = {}
+jusi.css.getUtils = (styles) => {
+  jusi.styles = styles
+  jusi.css.utils = {
+    '.cols-2': { gridTemplateColumns: 'repeat(2, 1fr)' },
+    '.cols-3': { gridTemplateColumns: 'repeat(3, 1fr)' },
+    '.cols-4': { gridTemplateColumns: 'repeat(4, 1fr)' },
+    '.gap-1': { gap: .25 },
+    '.gap-2': { gap: .5 },
+    '.gap-3': { gap: 1 },
+    '.gap-4': { gap: 2 },
+    '.gap-5': { gap: 4 },
+    '.rounded': { borderRadius: styles.border.borderRadius },
+    '.rounded-top': { borderTopLeftRadius: styles.border.borderRadius, borderTopRightRadius: styles.border.borderRadius },
+    '.rounded-bottom': { borderBottomLeftRadius: styles.border.borderRadius, borderBottomRightRadius: styles.border.borderRadius },
+    '.row': { display: 'flex' },
+    '.col': { display: 'flex', flexDirection: 'column' },
+    '.between': { display: 'flex', justifyContent: 'space-between' },
+    '.col-between': { display: 'flex', flexDirection: 'column', justifyContent: 'space-between' },
+    '.content-center': { justifyContent: 'center' },
+    '.content-start': { justifyContent: 'start' },
+    '.content-end': { justifyContent: 'end' },
+    '.items-center': { alignItems: 'center' },
+    '.items-start': { alignItems: 'start' },
+    '.items-end': { alignItems: 'end' },
+    '.stretch': { alignSelf: 'stretch' },
+    '.w-full': { width: '100%' },
+    '.hstack': {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      alignSelf: 'stretch'
+    },
+    '.vstack': {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      alignSelf: 'stretch'
+    },
+  }
+
+  if(!jusi.css.fileUtils) {
+    jusi.css.fileUtils = createStyles(jusi.css.utils)
+  }
+  
+  return jusi.css.utils
+}
+
+
 
 jusi.pages = {}
 
@@ -54,10 +122,34 @@ jusi.page = {
   app: document.getElementById('app'),
   push: (page) => {
     jusi.page.app.innerHTML = ''
-    console.log(page, jusi.pages[page])
+    // console.log(page, jusi.pages[page])
     jusi.pages[page].map(part => {
       jusi.page.app.appendChild(part)
     })
     document.body.classList.add(`page-${page}`)
-  } 
+  }
 }
+
+
+
+
+
+
+
+let resolveRoute = (evt) => {
+  const url = window.location.hash.slice(1) || "index";
+  jusi.page.push(url)
+};
+
+
+jusi.init = () => {
+  jusi.theme.load()
+}
+
+
+window.addEventListener('load', () => {
+  resolveRoute()
+  jusi.theme.load()
+});
+window.addEventListener('hashchange', resolveRoute);
+window.addEventListener("resize", setDeviceType);
