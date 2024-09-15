@@ -93,3 +93,7 @@ sw.*
 
 # Vercel
 .vercel
+
+
+# temporary files
+tmp/
