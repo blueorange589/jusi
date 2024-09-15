@@ -7,18 +7,32 @@ const addUnit = (key, val) => {
   return val
 }
 
+const addPadding = (padding) => {
+  let val = '',
+    type = typeof (padding),
+    pt = pr = pb = pl = 0
+  if (type === 'object') {
+    if (padding.y) { pt = pb = padding.y }
+    if (padding.top) { pt = padding.top }
+    if (padding.bottom) { pb = padding.bottom }
+    if (padding.x) { pr = pl = padding.x }
+    if (padding.right) { pr = padding.right }
+    if (padding.left) { pl = padding.left }
+    val = `${pt}rem ${pr}rem ${pb}rem ${pl}rem`
+  } else if (type === 'number') {
+    val = `${padding}rem ${padding}rem ${padding}rem ${padding}rem`
+  } else {
+    val = padding
+  }
+  return val
+}
+
 const makeCSSText = (styles) => {
   const stylesArr = []
   Object.keys(styles).map(sk => {
     let val = styles[sk]
     if (sk === 'padding') {
-      if (typeof (styles[sk]) === 'object') {
-        if (!styles[sk].top && !styles[sk].bottom && !styles[sk].y) { styles[sk].y = 0 }
-        if (!styles[sk].right && !styles[sk].left && !styles[sk].x) { styles[sk].x = 0 }
-        val = `${styles[sk].top || styles[sk].y}rem ${styles[sk].right || styles[sk].x}rem ${styles[sk].bottom || styles[sk].y}rem ${styles[sk].left || styles[sk].x}rem`
-      } else {
-        val = styles[sk]
-      }
+      val = addPadding(styles[sk])
     }
 
     //console.log(typeof(styles[sk]))
@@ -43,7 +57,7 @@ const createElement = (tag, props) => {
     el.innerText = props.text;
   }
 
-  if(props.icon) {
+  if (props.icon) {
     const i = document.createElement('i')
     i.classList.add('bi')
     i.classList.add(`bi-${props.icon}`)
@@ -51,11 +65,29 @@ const createElement = (tag, props) => {
     el.insertBefore(i, el.firstChild)
   }
 
-  props.classList?.map(cls => el.classList.add(cls))
+  if (props.classList) {
+    if (typeof (props.classList) === 'object') {
+      props.classList?.map(cls => el.classList.add(cls))
+    } else {
+      el.classList.add(props.classList)
+    }
+  }
+
+  // console.log(props)
   if (props.contains) {
     props.contains.map(item => {
+      // console.log(item)
       el.appendChild(item)
     })
+  }
+
+  if (props.children) {
+    // console.log(props.children)
+    props.children.map(child => {
+      console.log(child)
+      el.appendChild(child)
+    })
+    console.log(el)
   }
 
   if (props.attrs) {
@@ -72,11 +104,43 @@ const createElement = (tag, props) => {
     })
   }
 
-  if(props.events) {
+  if (props.events) {
     Object.keys(props.events).map(item => {
       el.addEventListener(item, props.events[item])
     })
   }
 
+  if (props.render) {
+    el.render = (data, template) => {
+      console.log(template)
+    }
+  }
+
   return el
+}
+
+
+const request = async (url) => {
+  const r = await fetch(url)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(users => {
+      // console.log(users);
+      return users
+    })
+    .catch(error => {
+      console.error('There was a problem with the fetch operation:', error);
+    });
+  return r
+}
+
+const render = (container, items) => {
+  container.innerHTML = ""
+  items.map(item => {
+    container.appendChild(item)
+  })
 }

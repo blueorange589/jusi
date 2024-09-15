@@ -1,6 +1,9 @@
 /* elements */
+const header = (props) => createElement('header', props)
+const main = (props) => createElement('main', props)
+const footer = (props) => createElement('footer', props)
 const form = (props) => createElement('form', props)
-const input = (props) => createElement('input', props)
+
 const select = (props) => createElement('select', props)
 const option = (props) => createElement('option', props)
 const textarea = (props) => createElement('textarea', props)
@@ -21,7 +24,7 @@ const h3 = (props) => createElement('h3', props)
 const h4 = (props) => createElement('h4', props)
 const h5 = (props) => createElement('h5', props)
 const h6 = (props) => createElement('h6', props)
-const hr = (props) => createElement('hr', props)
+const hr = (props = {}) => createElement('hr', props)
 const blockquote = (props) => createElement('blockquote', props)
 const canvas = (props) => createElement('canvas', props)
 const caption = (props) => createElement('caption', props)
@@ -34,6 +37,23 @@ const section = (props) => createElement('section', props)
 const strong = (props) => createElement('strong', props)
 
 /* components */
+const divider = (props = {}) => {
+
+}
+
+const input = (props) => {
+  const fieldItems = []
+  if(props.label) { fieldItems.push(label({text: props.label}))}
+  let {type, name, placeholder} = props
+  placeholder = placeholder || ''
+  props.attrs = {type, name, placeholder}
+  fieldItems.push(createElement('input', props))
+  const f = createElement('fieldset', {
+    contains: fieldItems
+  })
+  return f
+}
+
 const icon = (props) => {
   const fill = props.attrs?.fill || 'black'
   const name = props.name || 'android',
@@ -63,7 +83,11 @@ const card = (slots) => {
 }
 
 const grid = (props) => {
-  const el = div({ classList: ['grid'], contains: props.contains })
+  const el = div({ 
+    classList: ['grid'], 
+    contains: props.contains,
+    children: props.children
+  })
   return el
 }
 
