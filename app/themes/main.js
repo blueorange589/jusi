@@ -164,7 +164,11 @@ jusi.themes.main = {
     fontSize: 1,
     padding: mainTheme.padding.element,
   },
-
+  'input:focus': {
+    border: '1px solid transparent',
+    boxShadow: '0px 0px 0px 2px #242424',
+    opacity: '.6'
+  },
   '.icon': {
     fontSize: mainTheme.fontSizes.buttonIcon
   },
@@ -182,7 +186,7 @@ jusi.themes.main = {
     boxShadow: mainTheme.styles.shadow,
     ...jss['.col']
   },
-  '.card-body': { 
+  '.card-body': {
     padding: mainTheme.padding.content,
     flex: 1
   },
@@ -215,5 +219,5 @@ jusi.themes.main = {
   '.login-form > *': {
     marginBottom: '14px'
   },
-  
+
 }

@@ -63,11 +63,17 @@ jusi.els.gridFilter = div({
   classList: ['grid-filter'],
   contains: [
     h4({ text: 'Filter results' }),
-    input({ type: 'text', name: 'title', label: 'Title' }),
-    input({ type: 'email', name: 'email', label: 'Email' }),
+    div({
+      class: 'hstack gap-3',
+      contains: [
+        input({ type: 'text', name: 'title', label: 'Title' }),
+        input({ type: 'email', name: 'email', label: 'Email' }),
+      ]
+    }),
     hr()
   ]
 })
+
 
 
 
@@ -208,14 +214,16 @@ jusi.els.userModal = jusi.components.modal({
   ]
 })
 
-jusi.els.navMenu = jusi.components.dropdown({text: 'Menu', items: [
-  ul({
-    contains: [
-      li({contains: [a({text: 'Home', href: 'index.html#index'})]}),
-      li({contains: [a({text: 'Blog', href: 'index.html#blog'})]}),
-      li({contains: [a({text: 'About', href: 'index.html#about'})]}),
-      li({contains: [a({text: 'Login', href: 'index.html#login'})]}),
-    ]
-  })
-]})
+jusi.els.navMenu = jusi.components.dropdown({
+  text: 'Menu', items: [
+    ul({
+      contains: [
+        li({ contains: [a({ text: 'Home', href: 'index.html#index' })] }),
+        li({ contains: [a({ text: 'Blog', href: 'index.html#blog' })] }),
+        li({ contains: [a({ text: 'About', href: 'index.html#about' })] }),
+        li({ contains: [a({ text: 'Login', href: 'index.html#login' })] }),
+      ]
+    })
+  ]
+})
 jusi.el.addFirst(jusi.els.navBar, jusi.els.navMenu)

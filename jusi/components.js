@@ -42,7 +42,6 @@ jusi.components.dropdown = (props) => {
   if(props.text) { btnO.text = props.text }
   if(props.title) { items.push(h5({text: props.title }))}
   const ddItems = [...items, ...props.items]
-  console.log(ddItems) 
   
   return div({ 
     classList: ['dropdown'],

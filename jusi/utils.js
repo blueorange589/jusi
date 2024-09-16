@@ -109,7 +109,12 @@ const createElement = (tag, props) => {
   }
 
   if(props.class) {
-    el.classList.add(props.class)
+    if(props.class.includes(' ')) {
+      const cl = props.class.split(' ')
+      cl.map(cls => el.classList.add(cls))
+    } else {
+      el.classList.add(props.class)
+    }
   }
 
   // console.log(props)
