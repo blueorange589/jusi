@@ -33,7 +33,7 @@ const cssUtils = (styles) => {
     '.rounded': { borderRadius: styles.border.borderRadius },
     '.rounded-top': { borderTopLeftRadius: styles.border.borderRadius, borderTopRightRadius: styles.border.borderRadius },
     '.rounded-bottom': { borderBottomLeftRadius: styles.border.borderRadius, borderBottomRightRadius: styles.border.borderRadius },
-    '.row': { display: 'flex' },
+    '.row': { display: 'flex', gap: .4 },
     '.col': { display: 'flex', flexDirection: 'column' },
     '.between': { display: 'flex', justifyContent: 'space-between' },
     '.col-between': { display: 'flex', flexDirection: 'column', justifyContent: 'space-between' },
@@ -60,20 +60,70 @@ const cssUtils = (styles) => {
   }
 
   const jss = {
+    fieldset: {
+      display: 'flex',
+      flexDirection: 'row',
+      gap: 1,
+      fontWeight: 900
+    },
+    ".form-field": { 
+      display: "flex", 
+      flexDirection: "column", 
+      padding: styles.padding.section
+    },
+    ".form-field.form-radio, .form-field.form-checkbox": {
+      flexDirection: 'row',
+    },
+    ".form-field .radio-label, .form-field .checkbox-label": {
+      fontWeight: 400
+    },
+    'input[type="text"], input[type="email"], input[type="number"], input[type="date"]': {
+      backgroundColor: "purple",
+      color: "white",
+      width: "100%",
+      padding: "10px",
+      borderRadius: "5px",
+      boxSizing: "border-box"
+    },
+    select: {
+      backgroundColor: "lightgray",
+      width: "100%",
+      padding: "10px",
+      borderRadius: "4px"
+    },
+    textarea: {
+      backgroundColor: "pink",
+      width: "100%",
+      height: "100px",
+      padding: "10px 0",
+      boxSizing: "border-box",
+      borderRadius: "4px",
+      color: "purple"
+    },
+    'input[type="radio"], input[type="checkbox"]': { 
+      border: 'none', 
+      outline: 0,  
+      width: "20px", 
+      height: "20px", 
+      marginRight: "10px" 
+    },
+    'input[type="radio"]:focus, input[type="checkbox"]:focus': {
+      outline: 0, 
+    },
     "table": {
-      backgroundColor: styles.colors.table,
+      backgroundColor: '#fff',
       width: "100%"
     },
-    "table td, table th": { 
-      ...styles.border, 
+    "table td, table th": {
+      ...styles.border,
       borderRadius: '0px',
       padding: styles.padding.element
     },
-    "table.striped tr:nth-child(even)": { 
-      backgroundColor: styles.colors.tableStripe 
+    "table.striped tr:nth-child(even)": {
+      backgroundColor: styles.colors.tableStripe
     },
-    "table.hover tr:hover": { 
-      backgroundColor: styles.colors.tableHover 
+    "table.hover tr:hover": {
+      backgroundColor: styles.colors.tableHover
     },
     "table th": {
       padding: styles.padding.element,
@@ -172,9 +222,9 @@ const cssUtils = (styles) => {
   return { ...utils, ...jss }
 }
 
-jusi.opts = {}
-jusi.opts.gender = { 'male': 'Male', 'female': 'Female' }
-jusi.opts.countries = {
+jusi.options = {}
+jusi.options.gender = { 'male': 'Male', 'female': 'Female' }
+jusi.options.countries = {
   "AF": "Afghanistan",
   "AX": "Aland Islands",
   "AL": "Albania",

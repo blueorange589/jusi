@@ -18,6 +18,18 @@ const events = {
   },
   showAddUser: (e) => {
     jusi.el.open(jusi.els.userModal)
+  },
+  submitUserAdd: (e) => {
+    const data = new FormData(e.currentTarget);
+    let output = "";
+    for (const entry of data) {
+      output = `${output}${entry[0]}=${entry[1]}\r`;
+    }
+    console.log(output)
+    e.preventDefault();
+  },
+  resetUserAddForm: (e) => {
+    e.currentTarget.closest('form').reset()
   }
 }
 

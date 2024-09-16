@@ -235,5 +235,29 @@ const userData = [
   {username: 'mrs123', first_name: 'Jenny', last_name: 'Foe', gender: 'Female', age: 28}
 ]
 jusi.els.usersTable = jusi.components.table({class: 'striped hover'})
-jusi.el.renderTable(jusi.els.usersTable, userDataColumns, userData)
+jusi.el.renderTableData(jusi.els.usersTable, userDataColumns, userData)
 jusi.el.addFirst(jusi.els.pageContent, jusi.els.usersTable)
+
+
+jusi.els.userAddForm = form({
+  id: 'user-add-form',
+  events: {submit: events.submitUserAdd },
+  contains: [
+    row({
+      contains: [
+        input({name: 'username', label: 'Username'}),
+        input({name: 'first_name', label: 'First Name'}),
+        input({name: 'last_name', label: 'Last Name'})
+      ]
+    }),
+    radios({title: 'Gender', options: jusi.options.gender}),
+    checkbox({label: 'Do you agree?', name: 'agree'}),
+    div({
+      class: 'between',
+      contains: [
+        button({ text: 'Reset', classList: ['disabled'], events: {click: events.resetUserAddForm} }),
+        button({ text: 'Submit', type: 'submit' })
+      ]
+    })
+  ]
+})

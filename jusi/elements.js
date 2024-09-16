@@ -1,8 +1,108 @@
+const createElement = (tag, props = {}) => {
+  const el = document.createElement(tag);
+  // console.log(el, props.attrs)
+
+  if (props.text) {
+    el.innerText = props.text;
+  }
+
+  if (props.icon) {
+    const i = document.createElement('i')
+    i.classList.add('bi')
+    i.classList.add(`bi-${props.icon}`)
+    i.classList.add('icon')
+    el.insertBefore(i, el.firstChild)
+  }
+
+  if (props.classList) {
+    if (typeof (props.classList) === 'object') {
+      props.classList?.map(cls => el.classList.add(cls))
+    } else {
+      el.classList.add(props.classList)
+    }
+  }
+
+  if (props.class) {
+    if (props.class.includes(' ')) {
+      const cl = props.class.split(' ')
+      cl.map(cls => el.classList.add(cls))
+    } else {
+      el.classList.add(props.class)
+    }
+  }
+
+
+  let { href, src, name, type, value, rows, cols, placeholder } = props
+  if (!props.attrs) { props.attrs = {} }
+  if (href) { props.attrs.href = href }
+  if (src) { props.attrs.src = src }
+  if (name) { props.attrs.name = name }
+  if (type) { props.attrs.type = type }
+  if (value) { props.attrs.value = value }
+  if (rows) { props.attrs.rows = rows }
+  if (cols) { props.attrs.cols = cols }
+  if (placeholder) { props.attrs.placeholder = placeholder }
+
+  // console.log(props)
+  if (props.contains) {
+    if (typeof (props.contains) === 'object') {
+      props.contains.map(item => {
+        // console.log(item)
+        el.appendChild(item)
+      })
+    } else {
+      el.appendChild(props.contains)
+    }
+  }
+
+  if (props.children) {
+    // console.log(props.children)
+    props.children.map(child => {
+      console.log(child)
+      el.appendChild(child)
+    })
+    console.log(el)
+  }
+
+  if (props.attrs) {
+    // console.log(props.attrs)
+    if (props.attrs.style) {
+      Object.keys(props.attrs.style).map(item => el.style[item] = addUnit(item, props.attrs.style[item]))
+      // console.log(el, props.attrs.style, el.style)
+    }
+
+    Object.keys(props.attrs).map(attr => {
+      if (attr !== 'style') {
+        el.setAttribute(attr, props.attrs[attr])
+      }
+    })
+  }
+
+  if (props.events) {
+    Object.keys(props.events).map(item => {
+      el.addEventListener(item, props.events[item])
+    })
+  }
+
+  if (props.render) {
+    el.render = (data, template) => {
+      console.log(template)
+    }
+  }
+
+  return el
+}
+
+
 /* elements */
 const header = (props) => createElement('header', props)
 const main = (props) => createElement('main', props)
 const footer = (props) => createElement('footer', props)
+
 const form = (props) => createElement('form', props)
+const option = (props) => createElement('option', props)
+const label = (props) => createElement('label', props)
+const legend = (props) => createElement('legend', props)
 
 const table = (props) => createElement('table', props)
 const thead = (props) => createElement('thead', props)
@@ -12,13 +112,10 @@ const tr = (props) => createElement('tr', props)
 const th = (props) => createElement('th', props)
 const td = (props) => createElement('td', props)
 
-const select = (props) => createElement('select', props)
-const option = (props) => createElement('option', props)
-const textarea = (props) => createElement('textarea', props)
+
 const ol = (props) => createElement('ol', props)
 const ul = (props) => createElement('ul', props)
 const li = (props) => createElement('li', props)
-const label = (props) => createElement('label', props)
 const embed = (props) => createElement('embed', props)
 const iframe = (props) => createElement('iframe', props)
 const article = (props) => createElement('article', props)
@@ -45,51 +142,88 @@ const strong = (props) => createElement('strong', props)
 
 /* components */
 const a = (props) => {
-  if(props.href) { 
-    if(!props.attrs) { props.attrs = {} }
+  if (props.href) {
+    if (!props.attrs) { props.attrs = {} }
     props.attrs.href = props.href
   }
-  const el = createElement('a', props)
-  return el
+  return createElement('a', props)
 }
 
-const input = (props) => {
+const fieldset = (props) => {
+  if (!props.contains) { props.contains = [] }
+  if (props.title) { props.contains.push(legend({ text: props.title })) }
+  return createElement('fieldset', props)
+}
+
+
+
+const radio = (props) => {
+  props.type = 'radio'
+  return div({
+    classList: ['form-field', 'form-radio'],
+    contains: [
+      createElement('input', props),
+      label({
+        class: 'radio-label',
+        text: props.label,
+      })
+    ]
+  })
+}
+
+const radios = (props) => {
+  const rs = []
+  Object.keys(props.options).map(optionKey => {
+    rs.push(radio({label: props.options[optionKey], value: optionKey}))
+  })
+  console.log(rs)
+
+  return fieldset({
+    title: props.title,
+    contains: rs
+  })
+}
+
+const checkbox = (props) => {
+  props.type = 'checkbox'
+  return div({
+    classList: ['form-field', 'form-checkbox'],
+    contains: [
+      createElement('input', props),
+      label({
+        class: 'checkbox-label',
+        text: props.label,
+      })
+    ]
+  })
+}
+
+const createFormElement = (tag, props) => {
   const fieldItems = []
-  if(!props.type) { props.type = 'text' }
-  if(!props.name) { 
+  if (!props.type) { props.type = 'text' }
+  if (!props.name) {
     console.error('jusi: name attribute for form fields are required')
-   }
-  if(props.label) { fieldItems.push(label({text: props.label}))}
-  let {type, name, placeholder} = props
-  placeholder = placeholder || ''
-  props.attrs = {type, name, placeholder}
-  fieldItems.push(createElement('input', props))
-  const f = createElement('fieldset', {
+  }
+
+  if (props.label) { fieldItems.push(label({ text: props.label })) }
+  fieldItems.push(createElement(tag, props))
+
+  return div({
+    classList: ['form-field', `form-${tag}`],
     contains: fieldItems
   })
-  return f
 }
+
+const input = (props) => createFormElement('input', props)
+const select = (props) => createFormElement('select', props)
+const textarea = (props) => createFormElement('textarea', props)
 
 const icon = (props) => {
   const fill = props.attrs?.fill || 'black'
   const name = props.name || 'android',
-    i = createElement('i', { classList: [`bi-${name}`, 'icon']})
+    i = createElement('i', { classList: [`bi-${name}`, 'icon'] })
   return i
 }
-
-/* const table = (props) => {
-  // columns: {title: 'Title', created_at: 'Date Created'}
-  // data: [{title: 'Ghostbusters', link: 'https://movie.com', created_at: '2019-02-23T23:23:23Z'}]
-  // options: responsive, zebra, bordered, hover
-  const colHeads = []
-  for (i = 0; i < props.columns.length; i++) {
-    const colHead = createElement('th', { text: props.columns[i] })
-    colHeads.push[colHead]
-  }
-  const theadRow = createElement('tr', { contains: colHeads }),
-    thead = createElement('thead', { contains: theadRow })
-  return 'table'
-} */
 
 const card = (slots) => {
   const cardHeader = div({ classList: ['card-header'], contains: slots.header })
@@ -99,12 +233,25 @@ const card = (slots) => {
 }
 
 const grid = (props) => {
-  const el = div({ 
-    classList: ['grid'], 
+  return div({
+    classList: ['grid'],
     contains: props.contains,
     children: props.children
   })
-  return el
+}
+
+const row = (props) => {
+  return div({
+    ...{classList: ['row']},
+    ...props
+  })
+}
+
+const col = (props) => {
+  return div({
+    ...{classList: ['col']},
+    ...props
+  })
 }
 
 const container = (props) => {

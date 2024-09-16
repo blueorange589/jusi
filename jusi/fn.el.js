@@ -11,7 +11,15 @@ jusi.el.render = (target, items) => {
     target.appendChild(item)
   })
 }
-jusi.el.renderTable = (target, columns, data) => {
+
+jusi.el.renderSelectOptions = (target, items) => {
+  target.innerHTML = ""
+  Object.keys(items).map(item => {
+    target.appendChild(option({text: items[item], attrs: {value: item}}))
+  })
+}
+
+jusi.el.renderTableData = (target, columns, data) => {
   const thead = target.getElementsByTagName("thead")[0],
   theadTR = thead.getElementsByTagName("tr")[0],
   tbody = target.getElementsByTagName("tbody")[0]
@@ -35,6 +43,7 @@ jusi.el.renderTable = (target, columns, data) => {
   })
 }
 
+jusi.el.parent = (item, selector) => item.closest(selector)
 jusi.el.children = (item) => item.children
 jusi.el.hide = (item) => item.style.display = 'none'
 jusi.el.show = (item) => item.style.display = 'block'

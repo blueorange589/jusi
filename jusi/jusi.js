@@ -100,12 +100,7 @@ jusi.validate = {
   }
 }
 
-/* ROUTER */
 
-let resolveRoute = (evt) => {
-  const url = window.location.hash.slice(1) || "index";
-  jusi.page.push(url)
-};
 
 
 /* REQUEST - FETCH */
@@ -130,6 +125,13 @@ jusi.fetch = async (url, reqOptions = {}, renderOptions = {}) => {
     });
   return r
 }
+
+/* ROUTER */
+
+let resolveRoute = (evt) => {
+  const url = window.location.hash.slice(1) || "index";
+  jusi.page.push(url)
+};
 
 jusi.init = () => {
   setDeviceType()

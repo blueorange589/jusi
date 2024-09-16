@@ -121,12 +121,8 @@ jusi.themes.main = {
     borderStyle: 'inset',
     borderWidth: 1.5
   },
-  fieldset: {
-    ...jss[".col"],
-    ...jss['.items-start']
-  },
   label: {
-    fontWeight: 600
+    fontWeight: 500
   },
   header: {
     width: '100%',
