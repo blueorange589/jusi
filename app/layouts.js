@@ -1,7 +1,7 @@
 jusi.layouts = {}
 jusi.layouts.default = (fields) => {
   return [
-    jusi.el.header,
+    jusi.els.header,
     main({
       contains: [
         container({
@@ -9,7 +9,7 @@ jusi.layouts.default = (fields) => {
         })
       ]
     }),
-    jusi.el.footer
+    jusi.els.footer
   ]
 }
 

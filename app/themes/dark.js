@@ -32,8 +32,8 @@ const darkTheme = {
 }
 
 // Import CSS Utilities from Jusi by providing theme variables
-if (!cssUtils) {
-  const cssUtils = jusi.css.getUtils(darkTheme)
+if (!jss) {
+  const jss = jusi.css.getUtils(darkTheme)
 }
 
 

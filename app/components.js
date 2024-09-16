@@ -1,15 +1,15 @@
 /* 
-1. In order to make accessible by events, all components should be registered under jusi.el
-For example: jusi.el.componentName
+1. In order to make accessible by events, all components should be registered under jusi.els
+For example: jusi.els.componentName
 
 2. Child components can be directly added in contains: field of a parent component. 
 For example: contains[span(...)]
 
-However, if you will need to access child component later, you should register it under jusi.el
-For example: jusi.el.childComponent = span(...)
-Then in parent component, contains: [jusi.el.childCompoenent]
+However, if you will need to access child component later, you should register it under jusi.els
+For example: jusi.els.childComponent = span(...)
+Then in parent component, contains: [jusi.els.childCompoenent]
 */
-jusi.el.pageHeader = div({ 
+jusi.els.pageHeader = div({ 
   classList: ['page-header'], 
   contains: [
     h1({ text: 'Homepage' }), 
@@ -24,7 +24,7 @@ jusi.el.pageHeader = div({
 })
 
 
-jusi.el.header = header({
+jusi.els.header = header({
   contains: [
     container({
       classList: ['between'],
@@ -51,13 +51,13 @@ jusi.el.header = header({
 })
 
 
-jusi.el.footer = footer({
+jusi.els.footer = footer({
   contains: [
     container({ text: 'site footer' })
   ]
 })
 
-jusi.el.gridFilter = div({
+jusi.els.gridFilter = div({
   classList: ['grid-filter'],
   contains: [
     h4({text: 'Filter results'}),
@@ -69,9 +69,9 @@ jusi.el.gridFilter = div({
 
 
 
-jusi.el.menuItems = []
+jusi.els.menuItems = []
 Object.keys(menu).map(item => {
-  jusi.el.menuItems.push(li({
+  jusi.els.menuItems.push(li({
     contains: [a({ 
       text: menu[item].title, 
       attrs: { href: menu[item].link } 
@@ -79,8 +79,8 @@ Object.keys(menu).map(item => {
   }))
 })
 
-jusi.el.mobileMenuList = ul({
-  contains: jusi.el.menuItems
+jusi.els.mobileMenuList = ul({
+  contains: jusi.els.menuItems
 })
 
 // const mobileMenuList = a({text: 'test'})
@@ -88,11 +88,11 @@ jusi.el.mobileMenuList = ul({
 //  console.log(mobileMenuList)
 
 
-jusi.el.mobileMenu = div({
+jusi.els.mobileMenu = div({
   classList: ['mobilemenu'],
   contains: [
     img({attrs: {src: './assets/img/logo1.svg'}}),
-    jusi.el.mobileMenuList
+    jusi.els.mobileMenuList
   ]
 })
 
@@ -148,11 +148,11 @@ const card2 = card({
   ]
 })
 
-jusi.el.grid = grid({contains: [card1, card2]})
-jusi.el.posts = div({classList:['posts'], contains: [jusi.el.grid]})
+jusi.els.grid = grid({contains: [card1, card2]})
+jusi.els.posts = div({classList:['posts'], contains: [jusi.els.grid]})
 // console.log(dynamic.grid)
 
-jusi.el.postCards = (posts) => {
+jusi.els.postCards = (posts) => {
   return posts.map(post => card({
     header: [
       img({
@@ -175,13 +175,13 @@ jusi.el.postCards = (posts) => {
   }))
 }
 
-jusi.el.pageContent = div({
+jusi.els.pageContent = div({
   classList: ['page-content'],
-  contains: [jusi.el.posts]
+  contains: [jusi.els.posts]
 })
  
 
-jusi.el.loginForm = div({
+jusi.els.loginForm = div({
   classList: ['login-form'],
   contains: [
     img({ attrs: { src: './assets/img/logo1.svg' } }),

@@ -131,8 +131,12 @@ const createElement = (tag, props) => {
 
 
 const request = async (url) => {
+  jusi.fn.layout.suspense()
   const r = await fetch(url)
     .then(response => {
+      console.log(jusi)
+      jusi.fn.layout.release()
+
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }

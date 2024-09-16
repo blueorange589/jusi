@@ -58,13 +58,29 @@ jusi.page = {
 
 /* COMPONENTS */
 jusi.el = {}
+jusi.els = {}
+jusi.els.app = document.getElementById('app')
+jusi.els.loadingOverlay = createElement('div', {
+  classList: ['overlay'],
+  contains: [createElement('div', {
+    classList: ['loading']
+  })]
+})
+document.body.appendChild(jusi.els.loadingOverlay)
 
+/* METHODS */
+jusi.fn = {}
+jusi.fn.layout = {}
+jusi.fn.layout.suspense = () => { jusi.els.loadingOverlay.style.display = 'flex' }
+jusi.fn.layout.release = () => { jusi.els.loadingOverlay.style.display = 'none' }
+
+
+/* ROUTER */
 
 let resolveRoute = (evt) => {
   const url = window.location.hash.slice(1) || "index";
   jusi.page.push(url)
 };
-
 
 
 jusi.init = () => {

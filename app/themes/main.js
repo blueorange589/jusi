@@ -33,7 +33,7 @@ const mainTheme = {
 
 // Import CSS Utilities from Jusi by providing theme variables
 // Some CSS utilities use theme variables
-const cssUtils = jusi.css.getUtils(mainTheme)
+const jss = jusi.css.getUtils(mainTheme)
 
 
 jusi.themes.main = {
@@ -78,9 +78,9 @@ jusi.themes.main = {
     padding: mainTheme.padding.element,
     fontSize: mainTheme.fontSizes.button,
     borderRadius: mainTheme.border.borderRadius,
-    ...cssUtils['.hstack'],
-    ...cssUtils['.gap-1'],
-    ...cssUtils['.content-center'],
+    ...jss['.hstack'],
+    ...jss['.gap-1'],
+    ...jss['.content-center'],
   },
   'button:hover, .button:hover': {
     textShadow: mainTheme.styles.shadow
@@ -99,8 +99,8 @@ jusi.themes.main = {
     borderWidth: 1.5
   },
   fieldset: {
-    ...cssUtils[".col"],
-    ...cssUtils['.items-start']
+    ...jss[".col"],
+    ...jss['.items-start']
   },
   label: {
     fontWeight: 600
@@ -121,7 +121,7 @@ jusi.themes.main = {
   },
   '.app': {
     minHeight: '100vh',
-    ...cssUtils['.col']
+    ...jss['.col']
   },
   '.container': {
     width: '100%',
@@ -130,8 +130,8 @@ jusi.themes.main = {
     margin: '0px auto'
   },
   '.page-header': {
-    ...cssUtils['.between'],
-    ...cssUtils['.items-center'],
+    ...jss['.between'],
+    ...jss['.items-center'],
     padding: { y: 1 }
   },
   '.page-content': {
@@ -161,7 +161,7 @@ jusi.themes.main = {
     ...mainTheme.border,
     backgroundColor: mainTheme.colors.card,
     boxShadow: mainTheme.styles.shadow,
-    ...cssUtils['.col']
+    ...jss['.col']
   },
   '.card-body': { 
     padding: mainTheme.padding.content,
@@ -183,9 +183,9 @@ jusi.themes.main = {
   '.page-login main': {
     width: '100%',
     height: '100%',
-    ...cssUtils[".col"],
-    ...cssUtils[".content-center"],
-    ...cssUtils[".items-center"]
+    ...jss[".col"],
+    ...jss[".content-center"],
+    ...jss[".items-center"]
   },
   '.login-form': {
     color: 'white',
