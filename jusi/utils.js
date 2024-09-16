@@ -1,5 +1,15 @@
 const kebabize = (str) => str.replace(/[A-Z]+(?![a-z])|[A-Z]/g, ($, ofs) => (ofs ? "-" : "") + $.toLowerCase())
 
+const setDeviceType = () => {
+  const w = window.innerWidth
+  device.type = (w < 540) ? 'mobile' : (w < 1024) ? 'tablet' : 'desktop'
+  document.body.classList.remove('desktop')
+  document.body.classList.remove('tablet')
+  document.body.classList.remove('mobile')
+  document.body.classList.add(device.type)
+  // console.log(device.type)
+}
+
 const addUnit = (key, val) => {
   // console.log(key, val)
   if (rems.includes(key) && (typeof (val) === 'number')) { val += 'rem' }
