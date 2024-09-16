@@ -39,16 +39,28 @@ const addPadding = (padding) => {
 
 const makeCSSText = (styles) => {
   const stylesArr = []
+  const anims = ['to']
   Object.keys(styles).map(sk => {
     let val = styles[sk]
-    if (sk === 'padding') {
-      val = addPadding(styles[sk])
+    let assign = true
+    if (typeof (styles[sk]) === 'object') {
+      if (sk === 'padding') {
+        val = addPadding(styles[sk])
+      } else {
+        // anims
+        const ks = Object.keys(styles[sk])
+        val = ''
+        ks.map(k => {
+          val += `${sk} {${k}: ${styles[sk][k]}}`
+        })
+        assign = false
+      }
     }
-
-    //console.log(typeof(styles[sk]))
     val = addUnit(sk, val)
-    const styleText = [kebabize(sk), val].join(': ')
-    stylesArr.push(styleText)
+    if(assign) {
+      val = [kebabize(sk), val].join(': ')
+    }
+    stylesArr.push(val)
   })
   const stylesText = `{${stylesArr.join('; ')}}`
   return stylesText
@@ -57,6 +69,19 @@ const makeCSSText = (styles) => {
 const makeCSSLine = (tag, styles) => {
   const stylesText = makeCSSText(styles)
   return [tag, stylesText].join(' ')
+}
+
+const createStyles = (elementCSS) => {
+  let file = ''
+  Object.keys(elementCSS).map(tag => {
+    file += makeCSSLine(tag, elementCSS[tag])
+  })
+
+  var style = document.createElement('style');
+  style.innerHTML = file
+  // console.log(file)
+  document.getElementsByTagName('head')[0].appendChild(style);
+  return style
 }
 
 const createElement = (tag, props) => {
@@ -130,45 +155,6 @@ const createElement = (tag, props) => {
 }
 
 
-const request = async (url) => {
-  jusi.fn.layout.suspense()
-  const r = await fetch(url)
-    .then(response => {
-      console.log(jusi)
-      jusi.fn.layout.release()
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(users => {
-      // console.log(users);
-      return users
-    })
-    .catch(error => {
-      console.error('There was a problem with the fetch operation:', error);
-    });
-  return r
-}
-
-const render = (container, items) => {
-  container.innerHTML = ""
-  items.map(item => {
-    container.appendChild(item)
-  })
-}
 
 
-const createStyles = (elementCSS) => {
-  let file = ''
-  Object.keys(elementCSS).map(tag => {
-    file += makeCSSLine(tag, elementCSS[tag])
-  })
 
-  var style = document.createElement('style');
-  style.innerHTML = file
-  // console.log(file)
-  document.getElementsByTagName('head')[0].appendChild(style);
-  return style
-}

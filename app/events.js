@@ -3,8 +3,8 @@ const events = {
     alert('view clicked')
   },
   getPosts: async() => {
-    const r = await request('https://dummyjson.com/posts/?limit=10')
-    render(jusi.els.grid, jusi.els.postCards(r.posts))
+    const r = await jusi.fetch('https://dummyjson.com/posts/?limit=10')
+    jusi.el.render(jusi.els.grid, jusi.els.postCards(r.posts))
   },
   navigate: (e) => {
     const href = e.currentTarget.getAttribute("href")
@@ -15,6 +15,9 @@ const events = {
     const theme = jusi.theme.getName()
     const t = theme === 'dark' ? 'main' : 'dark'
     jusi.theme.use(t)
+  },
+  showAddUser: (e) => {
+    jusi.el.open(jusi.els.userModal)
   }
 }
 

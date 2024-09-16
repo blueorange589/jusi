@@ -9,19 +9,20 @@ However, if you will need to access child component later, you should register i
 For example: jusi.els.childComponent = span(...)
 Then in parent component, contains: [jusi.els.childCompoenent]
 */
-jusi.els.pageHeader = div({ 
-  classList: ['page-header'], 
+jusi.els.pageHeader = div({
+  classList: ['page-header'],
   contains: [
-    h1({ text: 'Homepage' }), 
-    div({ 
-      classList: ['hstack', 'gap-3'], 
+    h1({ text: 'Homepage' }),
+    div({
+      classList: ['hstack', 'gap-3'],
       contains: [
-        button({ text: 'Get Posts', events: {click: events.getPosts} }), 
-        button({ text: 'Filter' })
-      ] 
+        button({ text: 'Get Posts', events: { click: events.getPosts } }),
+        button({ text: 'Filter', events: { click: events.showAddUser } })
+      ]
     })
-  ] 
+  ]
 })
+
 
 
 jusi.els.header = header({
@@ -33,14 +34,14 @@ jusi.els.header = header({
         div({
           classList: ['navmenu', 'hstack', 'gap-2'],
           contains: [
-            button({ 
+            button({
               icon: 'moon-stars',
               attrs: { theme: 'dark' },
-              events: {click: events.switchTheme }
+              events: { click: events.switchTheme }
             }),
             button({ icon: 'list' }),
             a({
-              icon: 'box-arrow-right', 
+              icon: 'box-arrow-right',
               href: 'index.html#login'
             })
           ]
@@ -60,9 +61,9 @@ jusi.els.footer = footer({
 jusi.els.gridFilter = div({
   classList: ['grid-filter'],
   contains: [
-    h4({text: 'Filter results'}),
-    input({type: 'text', name: 'title', label: 'Title'}),
-    input({type: 'email', name: 'email', label: 'Email'}),
+    h4({ text: 'Filter results' }),
+    input({ type: 'text', name: 'title', label: 'Title' }),
+    input({ type: 'email', name: 'email', label: 'Email' }),
     hr()
   ]
 })
@@ -72,9 +73,9 @@ jusi.els.gridFilter = div({
 jusi.els.menuItems = []
 Object.keys(menu).map(item => {
   jusi.els.menuItems.push(li({
-    contains: [a({ 
-      text: menu[item].title, 
-      attrs: { href: menu[item].link } 
+    contains: [a({
+      text: menu[item].title,
+      attrs: { href: menu[item].link }
     })]
   }))
 })
@@ -91,7 +92,7 @@ jusi.els.mobileMenuList = ul({
 jusi.els.mobileMenu = div({
   classList: ['mobilemenu'],
   contains: [
-    img({attrs: {src: './assets/img/logo1.svg'}}),
+    img({ attrs: { src: './assets/img/logo1.svg' } }),
     jusi.els.mobileMenuList
   ]
 })
@@ -131,7 +132,7 @@ const card2 = card({
     img({ classList: ['rounded-top'], attrs: { src: './assets/img/example1.jpeg' } })
   ],
   body: [
-    h5({ text: 'Sit aute sint ipsum est quis.' }), 
+    h5({ text: 'Sit aute sint ipsum est quis.' }),
     span({ text: 'Ullamco cupidatat mollit dolor aute exercitation excepteur excepteur. Excepteur adipisicing reprehenderit anim reprehenderit do consectetur id sunt. Cupidatat minim nostrud laborum esse reprehenderit elit velit proident. Fugiat anim occaecat deserunt mollit do est consectetur ex officia commodo enim Lorem consequat ea. Ex nisi enim id quis est nulla aliquip laboris ad. Elit aliqua laboris ut proident minim esse est do velit dolor dolor eu commodo. Mollit non culpa fugiat ex ullamco.' })
   ],
   footer: [
@@ -148,8 +149,8 @@ const card2 = card({
   ]
 })
 
-jusi.els.grid = grid({contains: [card1, card2]})
-jusi.els.posts = div({classList:['posts'], contains: [jusi.els.grid]})
+jusi.els.grid = grid({ contains: [card1, card2] })
+jusi.els.posts = div({ classList: ['posts'], contains: [jusi.els.grid] })
 // console.log(dynamic.grid)
 
 jusi.els.postCards = (posts) => {
@@ -179,19 +180,29 @@ jusi.els.pageContent = div({
   classList: ['page-content'],
   contains: [jusi.els.posts]
 })
- 
+
 
 jusi.els.loginForm = div({
   classList: ['login-form'],
   contains: [
     img({ attrs: { src: './assets/img/logo1.svg' } }),
-    input({type: 'email', label: 'Email'}),
-    input({type: 'password', label: 'Password'}),
+    input({ type: 'email', name: 'email', label: 'Email' }),
+    input({ type: 'password', name: 'password', label: 'Password' }),
     button({
-      text: 'Login', 
-      attrs:{ href:'index'}, 
-      events: {click: events.navigate}
+      text: 'Login',
+      attrs: { href: 'index' },
+      events: { click: events.navigate }
     }),
-    a({text: 'Homepage', href: 'index.html#index'})
+    a({ text: 'Homepage', href: 'index.html#index' })
+  ]
+})
+
+
+jusi.els.userModal = jusi.components.modal({
+  header: [h3({ text: 'Add User' })],
+  body: [input({ name: 'first_name', placeholder: 'First name' })],
+  footer: [
+    button({ text: 'Reset', classList: ['disabled'] }),
+    button({ text: 'Submit', events: { click: events.addUser } })
   ]
 })

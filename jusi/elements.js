@@ -47,6 +47,10 @@ const a = (props) => {
 
 const input = (props) => {
   const fieldItems = []
+  if(!props.type) { props.type = 'text' }
+  if(!props.name) { 
+    console.error('jusi: name attribute for form fields are required')
+   }
   if(props.label) { fieldItems.push(label({text: props.label}))}
   let {type, name, placeholder} = props
   placeholder = placeholder || ''

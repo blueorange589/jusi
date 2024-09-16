@@ -56,17 +56,27 @@ jusi.page = {
 }
 
 
-/* COMPONENTS */
+/* ELEMENTS */
 jusi.el = {}
+jusi.el.addTo = (target, item) => target.appendChild(item)
+jusi.el.render = (target, items) => {
+  target.innerHTML = ""
+  items.map(item => {
+    target.appendChild(item)
+  })
+}
+jusi.el.hide = (item) => item.style.display = 'none'
+jusi.el.show = (item) => item.style.display = 'block'
+jusi.el.invisible = (item) => item.style.visibility = 'hidden'
+jusi.el.visible = (item) => item.style.visibility = 'visible'
+jusi.el.close = (item) => item.remove()
+jusi.el.open = (item) => document.body.appendChild(item)
+
+
 jusi.els = {}
+jusi.els.body = document.body
 jusi.els.app = document.getElementById('app')
-jusi.els.loadingOverlay = createElement('div', {
-  classList: ['overlay'],
-  contains: [createElement('div', {
-    classList: ['loading']
-  })]
-})
-document.body.appendChild(jusi.els.loadingOverlay)
+
 
 /* METHODS */
 jusi.fn = {}
@@ -82,6 +92,29 @@ let resolveRoute = (evt) => {
   jusi.page.push(url)
 };
 
+
+/* REQUEST - FETCH */
+jusi.fetch = async (url, reqOptions={}, renderOptions={}) => {
+  jusi.el.open(jusi.els.loadingOverlay)
+  const r = await fetch(url)
+    .then(response => {
+      // console.log(jusi)
+      jusi.el.close(jusi.els.loadingOverlay)
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(users => {
+      // console.log(users);
+      return users
+    })
+    .catch(error => {
+      console.error('There was a problem with the fetch operation:', error);
+    });
+  return r
+}
 
 jusi.init = () => {
   setDeviceType()

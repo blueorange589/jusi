@@ -9,7 +9,13 @@ const mainTheme = {
     button: 'rgb(5, 19, 141)',
     buttonText: 'white',
     card: 'rgb(255, 255, 255)',
-    icon: 'rgb(255, 255, 255)'
+    icon: 'rgb(255, 255, 255)',
+    overlay: 'rgba(0, 0, 0, 0.3)',
+    modal: 'rgb(255, 255, 255)',
+    modalText: 'rgb(5, 5, 5)',
+    disabled: 'rgb(151, 151, 151)',
+    danger: 'rgb(141, 5, 21)',
+    success: 'rgb(30, 141, 5)'
   },
   fontSizes: {
     button: .95,
@@ -27,7 +33,8 @@ const mainTheme = {
   padding: {
     section: { x: 0, y: 1 },
     content: 1,
-    element: { x: 1, y: .4 }
+    element: { x: 1, y: .4 },
+    modal: .4
   }
 }
 
@@ -88,6 +95,16 @@ jusi.themes.main = {
   '.button-lg': {
     fontSize: 1.2,
     padding: mainTheme.padding.element
+  },
+  'button.disabled': {
+    backgroundColor: mainTheme.colors.disabled,
+    color: mainTheme.colors.font
+  },
+  'button.danger': {
+    backgroundColor: mainTheme.colors.danger,
+  },
+  'button.success': {
+    backgroundColor: mainTheme.colors.success,
   },
   hr: {
     display: 'block',
@@ -195,5 +212,6 @@ jusi.themes.main = {
   },
   '.login-form > *': {
     marginBottom: '14px'
-  }
+  },
+  
 }
