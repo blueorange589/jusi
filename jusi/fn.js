@@ -1,9 +1,13 @@
 /* METHODS */
 jusi.fn = {}
+
+// layout
 jusi.fn.layout = {}
-jusi.fn.layout.suspense = () => { jusi.els.loadingOverlay.style.display = 'flex' }
-jusi.fn.layout.release = () => { jusi.els.loadingOverlay.style.display = 'none' }
+jusi.fn.layout.suspense = () => { jusi.components.loadingOverlay.style.display = 'flex' }
+jusi.fn.layout.release = () => { jusi.components.loadingOverlay.style.display = 'none' }
 jusi.fn.layout.scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
+
+// String
 jusi.fn.string = {}
 jusi.fn.string.ucfirst = () => str.charAt(0).toUpperCase() + str.slice(1)
 jusi.fn.string.hash = (numChars = 8) => Math.random().toString(36).substring(0, numChars)
@@ -18,6 +22,8 @@ jusi.fn.string.formatMoney = (str) => {
   });
   return formatter.format(str)
 }
+
+// Date
 jusi.fn.date = {}
 jusi.fn.date.daysUntil = (end) => {
   const now = Math.floor(Date.now() / 1000)

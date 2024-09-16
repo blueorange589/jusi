@@ -1,13 +1,13 @@
 jusi.components = {}
 
 /* Loading Overlay */
-jusi.els.loadingOverlay = div({
+jusi.components.loadingOverlay = div({
   classList: ['loading-overlay'],
   contains: [div({
     classList: ['loading']
   })]
 })
-//jusi.el.addTo(jusi.els.body, jusi.els.loadingOverlay) // add to body for fullscreen overlay
+//jusi.el.addTo(jusi.els.body, jusi.components.loadingOverlay) // add to body for fullscreen overlay
 
 /* Close button */
 jusi.components.closeButton = (clickFn) => {
@@ -51,6 +51,19 @@ jusi.components.dropdown = (props) => {
     ]
   })
 }
+
+/* Table */
+jusi.components.table = (props) => {
+  return table({
+    ...props,
+    contains: [
+      thead({ contains: [tr({})]}),
+      tbody({ contains: [tr({})]})
+    ]
+  })
+}
+
+/* Pagination */
 
 
 /* Toast */

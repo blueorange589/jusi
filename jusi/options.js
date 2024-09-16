@@ -60,6 +60,27 @@ const cssUtils = (styles) => {
   }
 
   const jss = {
+    "table": {
+      backgroundColor: styles.colors.table,
+      width: "100%"
+    },
+    "table td, table th": { 
+      ...styles.border, 
+      borderRadius: '0px',
+      padding: styles.padding.element
+    },
+    "table.striped tr:nth-child(even)": { 
+      backgroundColor: styles.colors.tableStripe 
+    },
+    "table.hover tr:hover": { 
+      backgroundColor: styles.colors.tableHover 
+    },
+    "table th": {
+      padding: styles.padding.element,
+      textAlign: "left",
+      backgroundColor: styles.colors.tableHead,
+      color: "white"
+    },
     '.close-btn': {
       fontSize: '20px',
       fontWeight: 'bold',

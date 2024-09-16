@@ -84,7 +84,7 @@ const createStyles = (elementCSS) => {
   return style
 }
 
-const createElement = (tag, props) => {
+const createElement = (tag, props = {}) => {
   const el = document.createElement(tag);
   // console.log(el, props.attrs)
 

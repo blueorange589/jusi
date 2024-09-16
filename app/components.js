@@ -227,3 +227,13 @@ jusi.els.navMenu = jusi.components.dropdown({
   ]
 })
 jusi.el.addFirst(jusi.els.navBar, jusi.els.navMenu)
+
+
+const userDataColumns = {username: 'Username', first_name: 'First name', last_name: 'Last name'}
+const userData = [
+  {username: 'joetto', first_name: 'Joe', last_name: 'Doe', gender: 'Male', age: 30},
+  {username: 'mrs123', first_name: 'Jenny', last_name: 'Foe', gender: 'Female', age: 28}
+]
+jusi.els.usersTable = jusi.components.table({class: 'striped hover'})
+jusi.el.renderTable(jusi.els.usersTable, userDataColumns, userData)
+jusi.el.addFirst(jusi.els.pageContent, jusi.els.usersTable)

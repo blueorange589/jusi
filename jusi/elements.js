@@ -4,6 +4,14 @@ const main = (props) => createElement('main', props)
 const footer = (props) => createElement('footer', props)
 const form = (props) => createElement('form', props)
 
+const table = (props) => createElement('table', props)
+const thead = (props) => createElement('thead', props)
+const tbody = (props) => createElement('tbody', props)
+const tfoot = (props) => createElement('tfoot', props)
+const tr = (props) => createElement('tr', props)
+const th = (props) => createElement('th', props)
+const td = (props) => createElement('td', props)
+
 const select = (props) => createElement('select', props)
 const option = (props) => createElement('option', props)
 const textarea = (props) => createElement('textarea', props)
@@ -69,7 +77,7 @@ const icon = (props) => {
   return i
 }
 
-const table = (props) => {
+/* const table = (props) => {
   // columns: {title: 'Title', created_at: 'Date Created'}
   // data: [{title: 'Ghostbusters', link: 'https://movie.com', created_at: '2019-02-23T23:23:23Z'}]
   // options: responsive, zebra, bordered, hover
@@ -81,7 +89,7 @@ const table = (props) => {
   const theadRow = createElement('tr', { contains: colHeads }),
     thead = createElement('thead', { contains: theadRow })
   return 'table'
-}
+} */
 
 const card = (slots) => {
   const cardHeader = div({ classList: ['card-header'], contains: slots.header })

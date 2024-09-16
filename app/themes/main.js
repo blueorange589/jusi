@@ -15,6 +15,10 @@ const mainTheme = {
     modalText: 'rgb(5, 5, 5)',
     dropdown: 'rgb(224, 224, 224)',
     dropdownText: 'rgb(5, 5, 5)',
+    table: 'white',
+    tableHead: 'rgb(18, 19, 20)',
+    tableStripe: '#f2f2f2',
+    tableHover: '#ddd',
     disabled: 'rgb(151, 151, 151)',
     danger: 'rgb(141, 5, 21)',
     success: 'rgb(30, 141, 5)'
