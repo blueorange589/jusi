@@ -13,6 +13,8 @@ const mainTheme = {
     overlay: 'rgba(0, 0, 0, 0.3)',
     modal: 'rgb(255, 255, 255)',
     modalText: 'rgb(5, 5, 5)',
+    dropdown: 'rgb(224, 224, 224)',
+    dropdownText: 'rgb(5, 5, 5)',
     disabled: 'rgb(151, 151, 151)',
     danger: 'rgb(141, 5, 21)',
     success: 'rgb(30, 141, 5)'
@@ -166,14 +168,14 @@ jusi.themes.main = {
   '.icon': {
     fontSize: mainTheme.fontSizes.buttonIcon
   },
-  '.navmenu': {},
-  '.navmenu button': {
+  '.navbar': {},
+  '.navbar button': {
     padding: { x: .7, y: .1 },
     backgroundColor: mainTheme.colors.navbar,
     borderColor: '#444',
     borderWidth: .1
   },
-  '.navmenu .icon': { color: 'white', fontSize: 1 },
+  '.navbar .icon': { color: 'white', fontSize: 1 },
   '.card': {
     ...mainTheme.border,
     backgroundColor: mainTheme.colors.card,

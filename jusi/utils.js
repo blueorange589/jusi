@@ -108,6 +108,10 @@ const createElement = (tag, props) => {
     }
   }
 
+  if(props.class) {
+    el.classList.add(props.class)
+  }
+
   // console.log(props)
   if (props.contains) {
     props.contains.map(item => {

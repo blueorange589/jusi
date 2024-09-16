@@ -58,19 +58,25 @@ jusi.page = {
 
 /* ELEMENTS */
 jusi.el = {}
-jusi.el.addTo = (target, item) => target.appendChild(item)
+jusi.el.addTo = (target, item) => target.append(item)
+jusi.el.addFirst = (target, item) => target.prepend(item)
+jusi.el.addLast = (target, item) => target.append(item)
+jusi.el.addBefore = (target, item) => target.before(item)
+jusi.el.addAfter = (target, item) => target.after(item)
 jusi.el.render = (target, items) => {
   target.innerHTML = ""
   items.map(item => {
     target.appendChild(item)
   })
 }
+jusi.el.children = (item) => item.children
 jusi.el.hide = (item) => item.style.display = 'none'
 jusi.el.show = (item) => item.style.display = 'block'
 jusi.el.invisible = (item) => item.style.visibility = 'hidden'
 jusi.el.visible = (item) => item.style.visibility = 'visible'
 jusi.el.close = (item) => item.remove()
 jusi.el.open = (item) => document.body.appendChild(item)
+
 
 
 jusi.els = {}

@@ -118,8 +118,35 @@ const cssUtils = (styles) => {
     '.modal-footer': {
       ...utils['.between'],
       padding: styles.padding.modal
+    },
+    '.dropbtn': {
+      backgroundColor: '#04AA6D',
+      padding: styles.padding.element,
+      fontSize: styles.fontSizes.button,
+      border: styles.border
+    },
+    '.dropdown': {
+      position: 'relative',
+      display: 'inline-block'
+    },
+    '.dropdown-content': {
+      display: 'none',
+      position: 'absolute',
+      backgroundColor: styles.colors.dropdown,
+      minWidth: '160px',
+      boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
+      zIndex: 1
+    },
+    '.dropdown-content a': {
+      color: styles.colors.dropdownText,
+      padding: styles.padding.element,
+      textDecoration: 'none',
+      display: 'block'
+    },
+    '.dropdown:hover .dropdown-content': {
+      display: 'block'
     }
   }
 
-  return {...utils, ...jss}
+  return { ...utils, ...jss }
 }

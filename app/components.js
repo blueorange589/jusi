@@ -24,6 +24,21 @@ jusi.els.pageHeader = div({
 })
 
 
+jusi.els.navBar = div({
+  classList: ['navbar', 'hstack', 'gap-2'],
+  contains: [
+    button({
+      icon: 'moon-stars',
+      attrs: { theme: 'dark' },
+      events: { click: events.switchTheme }
+    }),
+    button({ icon: 'list' }),
+    a({
+      icon: 'box-arrow-right',
+      href: 'index.html#login'
+    })
+  ]
+})
 
 jusi.els.header = header({
   contains: [
@@ -31,21 +46,7 @@ jusi.els.header = header({
       classList: ['between'],
       contains: [
         img({ attrs: { src: './assets/img/logo1.svg' } }),
-        div({
-          classList: ['navmenu', 'hstack', 'gap-2'],
-          contains: [
-            button({
-              icon: 'moon-stars',
-              attrs: { theme: 'dark' },
-              events: { click: events.switchTheme }
-            }),
-            button({ icon: 'list' }),
-            a({
-              icon: 'box-arrow-right',
-              href: 'index.html#login'
-            })
-          ]
-        })
+        jusi.els.navBar
       ]
     })
   ]
@@ -206,3 +207,15 @@ jusi.els.userModal = jusi.components.modal({
     button({ text: 'Submit', events: { click: events.addUser } })
   ]
 })
+
+jusi.els.navMenu = jusi.components.dropdown({text: 'Menu', items: [
+  ul({
+    contains: [
+      li({contains: [a({text: 'Home', href: 'index.html#index'})]}),
+      li({contains: [a({text: 'Blog', href: 'index.html#blog'})]}),
+      li({contains: [a({text: 'About', href: 'index.html#about'})]}),
+      li({contains: [a({text: 'Login', href: 'index.html#login'})]}),
+    ]
+  })
+]})
+jusi.el.addFirst(jusi.els.navBar, jusi.els.navMenu)
