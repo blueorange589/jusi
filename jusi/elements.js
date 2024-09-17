@@ -104,6 +104,7 @@ const footer = (props) => createElement('footer', props)
 
 const form = (props) => createElement('form', props)
 const option = (props) => createElement('option', props)
+const optgroup = (props) => createElement('optgroup', props)
 const label = (props) => createElement('label', props)
 const legend = (props) => createElement('legend', props)
 
@@ -232,6 +233,13 @@ const select = (props) => {
   let opts = []
   if(props.options) {
     opts = jusi.el.replicateSelectOptions(props.options)
+  }
+  if(props.multiple) {
+    console.log(props.name)
+
+    if(!props.name.includes('[')) {
+      props.name = `${props.name}[]`
+    }
   }
   return createFormElement('select', {...props, ...{contains: opts}})
 } 

@@ -64,6 +64,9 @@ jusi.el.renderForm = (renderOptions) => {
     selects = target.getElementsByTagName('select'),
     textareas = target.getElementsByTagName('textarea'),
     fields = [...inputs, ...selects, ...textareas]
+
+    // reset form before setting values
+    target.reset()
   // console.log(data)
   // console.log(fields)
   fields.map(field => {
@@ -81,15 +84,22 @@ jusi.el.renderForm = (renderOptions) => {
           }
           break;
         case 'checkbox':
-          // console.log(value, data[fname])
           if (data[fname].includes(value)) {
             field.setAttribute('checked', true)
           }
           break;
-        default:
-          // console.log(type, name , value, data[name])
-          field.value = data[fname]
-          // field.setAttribute('value', data[fname])
+          default:
+          // console.log(value, data[fname])
+          if(typeof(data[fname]) === 'object') {
+            // console.log(type, name , value, data[name])
+            data[fname].map(val => {
+              const o = field.querySelector(`option[value=${val}]`)
+              o.selected = true
+            })
+          } else {
+            field.value = data[fname]
+            // field.setAttribute('value', data[fname])
+          }
       }
     }
   })

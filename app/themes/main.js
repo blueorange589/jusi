@@ -170,6 +170,10 @@ jusi.themes.main = {
     boxShadow: '0px 0px 0px 2px #242424',
     opacity: '.6'
   },
+  'option:checked': {
+    backgroundColor: mainTheme.colors.button,
+    color: 'white'
+  },
   '.icon': {
     fontSize: mainTheme.fontSizes.buttonIcon
   },

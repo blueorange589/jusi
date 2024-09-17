@@ -254,6 +254,7 @@ jusi.els.formPostEdit = form({
     radios({ title: 'Gender', name: 'gender', options: jusi.options.gender }),
     checkbox({ label: 'Do you agree?', name: 'agree' }),
     select({label: 'Country', name: 'country', options: jusi.options.countries }),
+    select({label: 'Countries', name: 'countries', options: jusi.options.countries, multiple: true }),
     div({
       class: 'between',
       contains: [

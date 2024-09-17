@@ -27,10 +27,10 @@ css.flex = {
   flexWrap: 'wrap'
 }
 
-css.row = {...css.flex, gap: .4}
-css.col = {...css.flex, flexDirection: 'column', gap: .4}
-css.hstack = {...css.row, alignItems: 'center', alignSelf: 'stretch'}
-css.vstack = {...css.col, alignItems: 'center', alignSelf: 'stretch'}
+css.row = { ...css.flex, gap: .4 }
+css.col = { ...css.flex, flexDirection: 'column', gap: .4 }
+css.hstack = { ...css.row, alignItems: 'center', alignSelf: 'stretch' }
+css.vstack = { ...css.col, alignItems: 'center', alignSelf: 'stretch' }
 
 
 const cssUtils = (styles) => {
@@ -72,8 +72,8 @@ const cssUtils = (styles) => {
       gap: .6,
       fontWeight: 900
     },
-    ".form-field": { 
-      ...css.col, 
+    ".form-field": {
+      ...css.col,
       padding: styles.padding.section
     },
     ".form-field.form-radio, .form-field.form-checkbox": {
@@ -87,11 +87,21 @@ const cssUtils = (styles) => {
       padding: "10px",
       borderRadius: "5px",
     },
+    'input[type="radio"], input[type="checkbox"]': {
+      border: 'none',
+      outline: 0,
+      width: "20px",
+      height: "20px"
+    },
     select: {
       backgroundColor: "lightgray",
       width: "100%",
       padding: "10px",
       borderRadius: "4px"
+    },
+    'option:checked': {
+      backgroundColor: styles.colors.button,
+      color: 'white'
     },
     textarea: {
       backgroundColor: "pink",
@@ -101,16 +111,6 @@ const cssUtils = (styles) => {
       boxSizing: "border-box",
       borderRadius: "4px",
       color: "purple"
-    },
-    'input[type="radio"], input[type="checkbox"]': { 
-      border: 'none', 
-      outline: 0,  
-      width: "20px", 
-      height: "20px", 
-      marginRight: "10px" 
-    },
-    'input[type="radio"]:focus, input[type="checkbox"]:focus': {
-      outline: 0, 
     },
     "table": {
       backgroundColor: '#fff',
