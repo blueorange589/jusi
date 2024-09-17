@@ -174,10 +174,8 @@ const radio = (props) => {
 const radios = (props) => {
   const rs = []
   Object.keys(props.options).map(optionKey => {
-    rs.push(radio({label: props.options[optionKey], value: optionKey}))
+    rs.push(radio({label: props.options[optionKey], name: props.name, value: optionKey}))
   })
-  console.log(rs)
-
   return fieldset({
     title: props.title,
     contains: rs

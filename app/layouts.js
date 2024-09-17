@@ -1,4 +1,3 @@
-jusi.layouts = {}
 jusi.layouts.default = (fields) => {
   return [
     jusi.els.header,

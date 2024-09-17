@@ -1,3 +1,6 @@
+/* LAYOUTS */
+jusi.layouts = {}
+
 /* THEMES */
 jusi.themes = {}
 jusi.theme = {

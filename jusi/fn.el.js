@@ -5,10 +5,11 @@ jusi.el.addFirst = (target, item) => target.prepend(item)
 jusi.el.addLast = (target, item) => target.append(item)
 jusi.el.addBefore = (target, item) => target.before(item)
 jusi.el.addAfter = (target, item) => target.after(item)
-jusi.el.render = (target, items) => {
-  target.innerHTML = ""
-  items.map(item => {
-    target.appendChild(item)
+jusi.el.render = (renderOptions) => {
+  renderOptions.target.innerHTML = ""
+  renderOptions.data.map(item => {
+    const el = renderOptions.render(item)
+    renderOptions.target.appendChild(el)
   })
 }
 
@@ -19,7 +20,7 @@ jusi.el.renderSelectOptions = (target, items) => {
   })
 }
 
-jusi.el.renderTableData = (target, columns, data) => {
+jusi.el.renderTable = (target, columns, data) => {
   const thead = target.getElementsByTagName("thead")[0],
   theadTR = thead.getElementsByTagName("tr")[0],
   tbody = target.getElementsByTagName("tbody")[0]

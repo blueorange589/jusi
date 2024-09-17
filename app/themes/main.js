@@ -138,8 +138,9 @@ jusi.themes.main = {
   footer: {
     backgroundColor: mainTheme.colors.footer
   },
-  '.app': {
+  '#app': {
     minHeight: '100vh',
+    justifyContent: 'start',
     ...jss['.col']
   },
   '.container': {

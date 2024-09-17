@@ -9,20 +9,16 @@ However, if you will need to access child component later, you should register i
 For example: jusi.els.childComponent = span(...)
 Then in parent component, contains: [jusi.els.childCompoenent]
 */
-jusi.els.pageHeader = div({
+const pageHeader = (props) => div({
   classList: ['page-header'],
   contains: [
-    h1({ text: 'Homepage' }),
+    h1({ text: props.title }),
     div({
       classList: ['hstack', 'gap-3'],
-      contains: [
-        button({ text: 'Get Posts', events: { click: events.getPosts } }),
-        button({ text: 'Filter', events: { click: events.showAddUser } })
-      ]
+      contains: props.actions
     })
   ]
 })
-
 
 jusi.els.navBar = div({
   classList: ['navbar', 'hstack', 'gap-2'],
@@ -160,8 +156,8 @@ jusi.els.grid = grid({ contains: [card1, card2] })
 jusi.els.posts = div({ classList: ['posts'], contains: [jusi.els.grid] })
 // console.log(dynamic.grid)
 
-jusi.els.postCards = (posts) => {
-  return posts.map(post => card({
+jusi.els.postCard = (post) => {
+  return card({
     header: [
       img({
         classList: ['rounded-top'],
@@ -180,7 +176,7 @@ jusi.els.postCards = (posts) => {
         events: { click: events.cardViewClick }
       })
     ]
-  }))
+  })
 }
 
 jusi.els.pageContent = div({
@@ -235,7 +231,7 @@ const userData = [
   {username: 'mrs123', first_name: 'Jenny', last_name: 'Foe', gender: 'Female', age: 28}
 ]
 jusi.els.usersTable = jusi.components.table({class: 'striped hover'})
-jusi.el.renderTableData(jusi.els.usersTable, userDataColumns, userData)
+jusi.el.renderTable(jusi.els.usersTable, userDataColumns, userData)
 jusi.el.addFirst(jusi.els.pageContent, jusi.els.usersTable)
 
 
@@ -250,12 +246,12 @@ jusi.els.userAddForm = form({
         input({name: 'last_name', label: 'Last Name'})
       ]
     }),
-    radios({title: 'Gender', options: jusi.options.gender}),
+    radios({title: 'Gender', name: 'gender', options: jusi.options.gender}),
     checkbox({label: 'Do you agree?', name: 'agree'}),
     div({
       class: 'between',
       contains: [
-        button({ text: 'Reset', classList: ['disabled'], events: {click: events.resetUserAddForm} }),
+        button({ text: 'Reset', type: 'reset', classList: ['disabled'] }),
         button({ text: 'Submit', type: 'submit' })
       ]
     })

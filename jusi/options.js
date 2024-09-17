@@ -78,12 +78,9 @@ const cssUtils = (styles) => {
       fontWeight: 400
     },
     'input[type="text"], input[type="email"], input[type="number"], input[type="date"]': {
-      backgroundColor: "purple",
-      color: "white",
       width: "100%",
       padding: "10px",
       borderRadius: "5px",
-      boxSizing: "border-box"
     },
     select: {
       backgroundColor: "lightgray",
