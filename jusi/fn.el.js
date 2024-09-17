@@ -23,11 +23,13 @@ jusi.el.replicate = (renderOptions) => {
   return items
 }
 
-jusi.el.renderSelectOptions = (target, items) => {
-  target.innerHTML = ""
-  Object.keys(items).map(item => {
-    target.appendChild(option({ text: items[item], attrs: { value: item } }))
+jusi.el.replicateSelectOptions = (data) => {
+  const items = []
+  Object.keys(data).map(key => {
+    const item = option({ value: key, text: data[key] })
+    items.push(item)
   })
+  return items
 }
 
 jusi.el.renderTable = (renderOptions) => {
@@ -69,23 +71,25 @@ jusi.el.renderForm = (renderOptions) => {
       type = field.getAttribute('type'),
       value = field.getAttribute('value'),
       fname = name.replace('[', '').replace(']', '')
-    // console.log(type, name , value, data[name])
-    // console.log(fname, data[fname])  
-    if (data[fname]) {
+      if (data[fname]) {
+      // console.log(fname, data[fname])  
+
       switch (type) {
         case 'radio':
           if (value == data[fname]) {
             field.setAttribute('checked', true)
           }
           break;
-          case 'checkbox':
-          console.log(value, data[fname])
+        case 'checkbox':
+          // console.log(value, data[fname])
           if (data[fname].includes(value)) {
             field.setAttribute('checked', true)
           }
           break;
         default:
-          field.setAttribute('value', data[fname])
+          // console.log(type, name , value, data[name])
+          field.value = data[fname]
+          // field.setAttribute('value', data[fname])
       }
     }
   })

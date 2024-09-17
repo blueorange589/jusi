@@ -32,7 +32,7 @@ const createElement = (tag, props = {}) => {
   }
 
 
-  let { href, src, name, type, value, rows, cols, placeholder } = props
+  let { href, src, name, type, value, rows, cols, placeholder, multiple, checked, selected } = props
   if (!props.attrs) { props.attrs = {} }
   if (href) { props.attrs.href = href }
   if (src) { props.attrs.src = src }
@@ -42,6 +42,9 @@ const createElement = (tag, props = {}) => {
   if (rows) { props.attrs.rows = rows }
   if (cols) { props.attrs.cols = cols }
   if (placeholder) { props.attrs.placeholder = placeholder }
+  if (multiple) { props.attrs.multiple = multiple }
+  if (checked) { props.attrs.checked = checked }
+  if (selected) { props.attrs.selected = selected }
 
   // console.log(props)
   if (props.contains) {
@@ -209,7 +212,7 @@ const checkboxes = (props) => {
 
 const createFormElement = (tag, props) => {
   const fieldItems = []
-  if (!props.type) { props.type = 'text' }
+  if (tag === 'input' && !props.type) { props.type = 'text' }
   if (!props.name) {
     console.error('jusi: name attribute for form fields are required')
   }
@@ -223,8 +226,15 @@ const createFormElement = (tag, props) => {
   })
 }
 
+
 const input = (props) => createFormElement('input', props)
-const select = (props) => createFormElement('select', props)
+const select = (props) => {
+  let opts = []
+  if(props.options) {
+    opts = jusi.el.replicateSelectOptions(props.options)
+  }
+  return createFormElement('select', {...props, ...{contains: opts}})
+} 
 const textarea = (props) => createFormElement('textarea', props)
 
 const icon = (props) => {

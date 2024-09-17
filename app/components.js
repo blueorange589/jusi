@@ -193,17 +193,17 @@ jusi.els.userModal = jusi.components.modal({
 
 
 
-const menuList = () => {
+const menuItems = (data) => {
   return jusi.el.replicate({
     render: (item) => li({ contains: [a(item)] }),
-    data: jusi.options.menu,
+    data
   })
 }
 
 jusi.els.navMenu = jusi.components.dropdown({
   text: 'Menu',
   items: [
-    ul({ contains: menuList() })
+    ul({ contains: menuItems(jusi.options.menu) })
   ]
 })
 
@@ -212,7 +212,7 @@ jusi.els.mobileMenu = div({
   classList: ['mobilemenu'],
   contains: [
     img({ attrs: { src: './assets/img/logo1.svg' } }),
-    ul({ contains: menuList() })
+    ul({ contains: menuItems(jusi.options.menu) })
   ]
 })
 
@@ -253,6 +253,7 @@ jusi.els.formPostEdit = form({
     checkboxes({ title: 'Tags', name: 'tags[]', options: { 'french': 'French', 'history': 'History', 'fiction': 'Fiction', 'english': 'English', 'american': 'American', 'crime': 'Crime' } }),
     radios({ title: 'Gender', name: 'gender', options: jusi.options.gender }),
     checkbox({ label: 'Do you agree?', name: 'agree' }),
+    select({label: 'Country', name: 'country', options: jusi.options.countries }),
     div({
       class: 'between',
       contains: [

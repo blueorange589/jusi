@@ -20,6 +20,7 @@ const events = {
   },
   fillForm: async() => {
     const r = await jusi.fetch('https://dummyjson.com/posts/?limit=10')
+    r.posts[0].country = 'US'
     jusi.el.renderForm({
       target: jusi.els.formPostEdit,
       data: r.posts[0]
