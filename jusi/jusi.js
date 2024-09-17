@@ -1,3 +1,7 @@
+/* OPTIONS */
+jusi.options = {}
+
+
 /* LAYOUTS */
 jusi.layouts = {}
 

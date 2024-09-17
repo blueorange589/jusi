@@ -196,6 +196,17 @@ const checkbox = (props) => {
   })
 }
 
+const checkboxes = (props) => {
+  const rs = []
+  Object.keys(props.options).map(optionKey => {
+    rs.push(checkbox({label: props.options[optionKey], name: props.name, value: optionKey}))
+  })
+  return fieldset({
+    title: props.title,
+    contains: rs
+  }) 
+}
+
 const createFormElement = (tag, props) => {
   const fieldItems = []
   if (!props.type) { props.type = 'text' }

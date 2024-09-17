@@ -73,32 +73,13 @@ jusi.els.gridFilter = div({
 
 
 
-jusi.els.menuItems = []
-Object.keys(menu).map(item => {
-  jusi.els.menuItems.push(li({
-    contains: [a({
-      text: menu[item].title,
-      attrs: { href: menu[item].link }
-    })]
-  }))
-})
-
-jusi.els.mobileMenuList = ul({
-  contains: jusi.els.menuItems
-})
 
 // const mobileMenuList = a({text: 'test'})
 
 //  console.log(mobileMenuList)
 
 
-jusi.els.mobileMenu = div({
-  classList: ['mobilemenu'],
-  contains: [
-    img({ attrs: { src: './assets/img/logo1.svg' } }),
-    jusi.els.mobileMenuList
-  ]
-})
+
 
 
 
@@ -210,44 +191,68 @@ jusi.els.userModal = jusi.components.modal({
   ]
 })
 
+
+
+const menuList = () => {
+  return jusi.el.replicate({
+    render: (item) => li({ contains: [a(item)] }),
+    data: jusi.options.menu,
+  })
+}
+
 jusi.els.navMenu = jusi.components.dropdown({
-  text: 'Menu', items: [
-    ul({
-      contains: [
-        li({ contains: [a({ text: 'Home', href: 'index.html#index' })] }),
-        li({ contains: [a({ text: 'Blog', href: 'index.html#blog' })] }),
-        li({ contains: [a({ text: 'About', href: 'index.html#about' })] }),
-        li({ contains: [a({ text: 'Login', href: 'index.html#login' })] }),
-      ]
-    })
+  text: 'Menu',
+  items: [
+    ul({ contains: menuList() })
   ]
 })
+
+
+jusi.els.mobileMenu = div({
+  classList: ['mobilemenu'],
+  contains: [
+    img({ attrs: { src: './assets/img/logo1.svg' } }),
+    ul({ contains: menuList() })
+  ]
+})
+
+
+
 jusi.el.addFirst(jusi.els.navBar, jusi.els.navMenu)
 
 
-const userDataColumns = {username: 'Username', first_name: 'First name', last_name: 'Last name'}
+
+
+
+
+
+
+const userDataColumns = { username: 'Username', first_name: 'First name', last_name: 'Last name' }
 const userData = [
-  {username: 'joetto', first_name: 'Joe', last_name: 'Doe', gender: 'Male', age: 30},
-  {username: 'mrs123', first_name: 'Jenny', last_name: 'Foe', gender: 'Female', age: 28}
+  { username: 'joetto', first_name: 'Joe', last_name: 'Doe', gender: 'Male', age: 30 },
+  { username: 'mrs123', first_name: 'Jenny', last_name: 'Foe', gender: 'Female', age: 28 }
 ]
-jusi.els.usersTable = jusi.components.table({class: 'striped hover'})
-jusi.el.renderTable(jusi.els.usersTable, userDataColumns, userData)
-jusi.el.addFirst(jusi.els.pageContent, jusi.els.usersTable)
+jusi.els.postsTable = jusi.components.table({ class: 'striped hover' })
+// jusi.el.renderTable(jusi.els.usersTable, userDataColumns, userData)
+jusi.el.addFirst(jusi.els.pageContent, jusi.els.postsTable)
 
 
-jusi.els.userAddForm = form({
+jusi.els.formPostEdit = form({
   id: 'user-add-form',
-  events: {submit: events.submitUserAdd },
+  events: { submit: events.submitUserAdd },
   contains: [
+    button({ text: 'Fill form', type: 'button', events: { click: events.fillForm } }),
     row({
       contains: [
-        input({name: 'username', label: 'Username'}),
-        input({name: 'first_name', label: 'First Name'}),
-        input({name: 'last_name', label: 'Last Name'})
+        input({ name: 'title', label: 'Title' }),
+        input({ name: 'views', label: 'Views' }),
+        input({ name: 'userId', label: 'User ID' })
       ]
     }),
-    radios({title: 'Gender', name: 'gender', options: jusi.options.gender}),
-    checkbox({label: 'Do you agree?', name: 'agree'}),
+    radios({ title: 'IDs', name: 'id', options: { 1: 'ID 1', 2: 'ID 2' } }),
+    checkboxes({ title: 'Tags', name: 'tags[]', options: { 'french': 'French', 'history': 'History', 'fiction': 'Fiction', 'english': 'English', 'american': 'American', 'crime': 'Crime' } }),
+    radios({ title: 'Gender', name: 'gender', options: jusi.options.gender }),
+    checkbox({ label: 'Do you agree?', name: 'agree' }),
     div({
       class: 'between',
       contains: [

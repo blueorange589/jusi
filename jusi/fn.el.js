@@ -11,37 +11,85 @@ jusi.el.render = (renderOptions) => {
     const el = renderOptions.render(item)
     renderOptions.target.appendChild(el)
   })
+  return renderOptions.target
+}
+
+jusi.el.replicate = (renderOptions) => {
+  const items = []
+  renderOptions.data.map(item => {
+    const el = renderOptions.render(item)
+    items.push(el)
+  })
+  return items
 }
 
 jusi.el.renderSelectOptions = (target, items) => {
   target.innerHTML = ""
   Object.keys(items).map(item => {
-    target.appendChild(option({text: items[item], attrs: {value: item}}))
+    target.appendChild(option({ text: items[item], attrs: { value: item } }))
   })
 }
 
-jusi.el.renderTable = (target, columns, data) => {
-  const thead = target.getElementsByTagName("thead")[0],
-  theadTR = thead.getElementsByTagName("tr")[0],
-  tbody = target.getElementsByTagName("tbody")[0]
+jusi.el.renderTable = (renderOptions) => {
+  const { target, data, columns } = renderOptions,
+    thead = target.getElementsByTagName("thead")[0],
+    theadTR = thead.getElementsByTagName("tr")[0],
+    tbody = target.getElementsByTagName("tbody")[0]
 
   tbody.innerHTML = ""
   colKeys = Object.keys(columns),
-  numCols = colKeys.length,
-  numRows = data.length
+    numCols = colKeys.length,
+    numRows = data.length
 
   colKeys.map((ck, c) => {
-    theadTR.append(th({text: columns[ck]}))
+    theadTR.append(th({ text: columns[ck] }))
   })
 
   let rowTemplate = tr({})
   data.map((set, i) => {
     let row = rowTemplate.cloneNode(true)
     colKeys.map((cck, ci) => {
-      row.append(td({text: set[colKeys[ci]]}))
+      row.append(td({ text: set[colKeys[ci]] }))
     })
     tbody.append(row)
   })
+}
+
+jusi.el.renderForm = (renderOptions) => {
+  const { target, data } = renderOptions,
+    form = new FormData(target),
+    inputs = target.getElementsByTagName('input'),
+    selects = target.getElementsByTagName('select'),
+    textareas = target.getElementsByTagName('textarea'),
+    fields = [...inputs, ...selects, ...textareas]
+  // console.log(data)
+  // console.log(fields)
+  fields.map(field => {
+    const name = field.getAttribute('name'),
+      type = field.getAttribute('type'),
+      value = field.getAttribute('value'),
+      fname = name.replace('[', '').replace(']', '')
+    // console.log(type, name , value, data[name])
+    // console.log(fname, data[fname])  
+    if (data[fname]) {
+      switch (type) {
+        case 'radio':
+          if (value == data[fname]) {
+            field.setAttribute('checked', true)
+          }
+          break;
+          case 'checkbox':
+          console.log(value, data[fname])
+          if (data[fname].includes(value)) {
+            field.setAttribute('checked', true)
+          }
+          break;
+        default:
+          field.setAttribute('value', data[fname])
+      }
+    }
+  })
+
 }
 
 jusi.el.parent = (item, selector) => item.closest(selector)

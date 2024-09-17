@@ -3,7 +3,7 @@ jusi.pages.index = jusi.layouts.default([
     title: 'Homepage',
     actions: [
           button({ text: 'Get Posts', events: { click: events.getPosts } }),
-          button({ text: 'Filter', events: { click: events.filterPosts } })
+          button({ text: 'Filter', events: { click: events.fillTable } })
         ]
   }),
   jusi.els.gridFilter,
@@ -15,7 +15,7 @@ jusi.pages.about = jusi.layouts.default([
     title: 'About',
     actions: []
   }),
-  jusi.els.userAddForm
+  jusi.els.formPostEdit
 ])
 
 jusi.pages.login = jusi.layouts.login([

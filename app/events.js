@@ -10,6 +10,21 @@ const events = {
       data: r.posts
     })
   },
+  fillTable: async() => {
+    const r = await jusi.fetch('https://dummyjson.com/posts/?limit=10')
+    jusi.el.renderTable({
+      target: jusi.els.postsTable,
+      data: r.posts,
+      columns: {title: 'Title', views: 'Views', userId: 'User ID'}
+    })
+  },
+  fillForm: async() => {
+    const r = await jusi.fetch('https://dummyjson.com/posts/?limit=10')
+    jusi.el.renderForm({
+      target: jusi.els.formPostEdit,
+      data: r.posts[0]
+    })
+  },
   navigate: (e) => {
     const href = e.currentTarget.getAttribute("href")
     console.log(e.currentTarget)
@@ -32,7 +47,7 @@ const events = {
     console.log(output)
     e.preventDefault();
   },
-  resetUserAddForm: (e) => {
+  resetformPostEdit: (e) => {
     e.currentTarget.closest('form').reset()
   }
 }
