@@ -160,9 +160,19 @@ jusi.els.postCard = (post) => {
   })
 }
 
+/* jusi.els.postsPager = pagination({
+  page: 3,
+  perPage: 10,
+  total: 187,
+  change: events.selectPage
+}) */
+
 jusi.els.pageContent = div({
   classList: ['page-content'],
-  contains: [jusi.els.posts]
+  contains: [
+    jusi.els.postsPager,
+    jusi.els.posts
+  ]
 })
 
 

@@ -153,6 +153,43 @@ const a = (props) => {
   return createElement('a', props)
 }
 
+const pagination = (props) => {
+  const { page, perPage, total } = props
+  if(!page || !perPage || !total) {
+    console.error('jusi: page, perPage and total is required')
+    return false
+  }
+  const numPages = Math.ceil((total/perPage))
+  const pages = []
+  console.log(numPages, page, perPage, total)
+  /* for (i = 1; i = numPages; i++) {
+    const o = option({ text: i, value: i })
+    if (i == page) { o.selected = true }
+    pages.push(o)
+  }  */
+ const sel = select({ name: 'postpager', options: pages, events: {change: props.change}})
+  return sel
+}
+
+const paginationLinks = (props) => {
+  const { page, perPage, total, events } = props,
+    numpages = Math.floor(perPage / total),
+    buttons = []
+  if(page>1) {
+    buttons.push(a({ text: '<<', class: 'pagination-first', attrs: {'data-page': 1}, events: { click: events.first } }))
+    buttons.push(a({ text: '<', class: 'pagination-previous', attrs: {'data-page': page-1}, events: { click: events.prev } }))
+  }
+  for (i = 1; i = 10; i++) {
+    const bNum = page>4?(page-4+i):i,
+    lo = { text: bNum, class: 'pagination-page', attrs: {'data-page': bNum} }
+    if(page !== i) { lo.events = { click: events.page } }
+    buttons.push(a(lo))
+  }
+  buttons.push(a({ text: '>', class: 'pagination-next', attrs: {'data-page': page+1}, events: { click: events.next } }))
+  buttons.push(a({ text: '>>', class: 'pagination-last', attrs: {'data-page': numpages}, events: { click: events.last } }))
+  return div({class: 'pagination'})
+}
+
 const fieldset = (props) => {
   if (!props.contains) { props.contains = [] }
   if (props.title) { props.contains.push(legend({ text: props.title })) }
@@ -178,7 +215,7 @@ const radio = (props) => {
 const radios = (props) => {
   const rs = []
   Object.keys(props.options).map(optionKey => {
-    rs.push(radio({label: props.options[optionKey], name: props.name, value: optionKey}))
+    rs.push(radio({ label: props.options[optionKey], name: props.name, value: optionKey }))
   })
   return fieldset({
     title: props.title,
@@ -203,12 +240,12 @@ const checkbox = (props) => {
 const checkboxes = (props) => {
   const rs = []
   Object.keys(props.options).map(optionKey => {
-    rs.push(checkbox({label: props.options[optionKey], name: props.name, value: optionKey}))
+    rs.push(checkbox({ label: props.options[optionKey], name: props.name, value: optionKey }))
   })
   return fieldset({
     title: props.title,
     contains: rs
-  }) 
+  })
 }
 
 const createFormElement = (tag, props) => {
@@ -231,18 +268,16 @@ const createFormElement = (tag, props) => {
 const input = (props) => createFormElement('input', props)
 const select = (props) => {
   let opts = []
-  if(props.options) {
+  if (props.options) {
     opts = jusi.el.replicateSelectOptions(props.options)
   }
-  if(props.multiple) {
-    console.log(props.name)
-
-    if(!props.name.includes('[')) {
+  if (props.multiple) {
+    if (!props.name.includes('[')) {
       props.name = `${props.name}[]`
     }
   }
-  return createFormElement('select', {...props, ...{contains: opts}})
-} 
+  return createFormElement('select', { ...props, ...{ contains: opts } })
+}
 const textarea = (props) => createFormElement('textarea', props)
 
 const icon = (props) => {
@@ -269,14 +304,14 @@ const grid = (props) => {
 
 const row = (props) => {
   return div({
-    ...{classList: ['row']},
+    ...{ classList: ['row'] },
     ...props
   })
 }
 
 const col = (props) => {
   return div({
-    ...{classList: ['col']},
+    ...{ classList: ['col'] },
     ...props
   })
 }

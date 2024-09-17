@@ -51,6 +51,9 @@ const events = {
   },
   resetformPostEdit: (e) => {
     e.currentTarget.closest('form').reset()
+  },
+  selectPage: (e) => {
+    alert(e.currentTarget.value)
   }
 }
 
