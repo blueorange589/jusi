@@ -14,5 +14,14 @@ jusi.layouts.login = (fields) => {
 }
 ```
 
+```
+jusi.pages.about = jusi.layouts.default([
+  pageHeader({
+    title: 'About',
+    actions: []
+  }),
+  jusi.els.formPostEdit
+])
+```
 
 😘
