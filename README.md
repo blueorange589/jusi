@@ -1,4 +1,4 @@
-# jusi
+# jusi 🦩
 
 JS only, app development framework
 
