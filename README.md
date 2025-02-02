@@ -26,7 +26,7 @@ jusi.pages.about = jusi.layouts.default([
 
 😘
 --
-todo: 
+roadmap: 
 
 reactivity implementation
 
