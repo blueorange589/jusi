@@ -27,7 +27,9 @@ jusi.pages.about = jusi.layouts.default([
 😘
 --
 todo: 
+
 reactivity implementation
+
 PWA imp.
 
 --
