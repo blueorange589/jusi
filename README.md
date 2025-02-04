@@ -4,6 +4,7 @@ JS only, app development framework
 
 no HTML, no CSS. all handled by jusi!
 
+### Layouts
 ```
 jusi.layouts.login = (fields) => {
   return [
@@ -14,6 +15,7 @@ jusi.layouts.login = (fields) => {
 }
 ```
 
+### Pages
 ```
 jusi.pages.about = jusi.layouts.default([
   pageHeader({
@@ -22,6 +24,32 @@ jusi.pages.about = jusi.layouts.default([
   }),
   jusi.els.formPostEdit
 ])
+```
+
+### Components
+```
+/* Close button */
+jusi.components.closeButton = (clickFn) => {
+  return span({ text: 'X', classList: ['close-btn'], events: { click: clickFn } })
+}
+
+/* Modal */
+jusi.components.modal = (slots = {}) => {
+  const modal = div({ classList: ['modal-overlay'] })
+  slots.header.push(jusi.components.closeButton(() => {
+    modal.remove()
+  }))
+
+  jusi.el.addTo(modal, div({
+    classList: ['modal'],
+    contains: [
+      div({ classList: ['modal-header'], contains: slots.header }),
+      div({ classList: ['modal-body'], contains: slots.body }),
+      div({ classList: ['modal-footer'], contains: slots.footer }),
+    ]
+  }))
+  return modal
+}
 ```
 
 😘
